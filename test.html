@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!-- Avenir fonts (https://www.onlinewebfonts.com/package/Avenir_LT_Std) -->
+    <style>
+      @font-face {
+        font-family: "Avenir LT Std 35 Light";
+        src: url("file:///C:/PYTHON/cv/AvenirLTStd-Light.otf");
+      }
+      @font-face {
+        font-family: "Avenir LT Std 45 Book";
+        src: url("file:///C:/PYTHON/cv/AvenirLTStd-Book.otf");
+      }
+      @font-face {
+        font-family: "Avenir LT Std 55 Roman";
+        src: url("file:///C:/PYTHON/cv/AvenirLTStd-Roman.otf");
+      }
+      @font-face {
+        font-family: "Avenir LT Std 65 Medium";
+        src: url("file:///C:/PYTHON/cv/AvenirLTStd-Medium.otf");
+      }
+      @font-face {
+        font-family: "Avenir LT Std 85 Heavy";
+        src: url("//db.onlinewebfonts.com/t/b9f8585bf9e014e2d6f38c0a927e9fd9.eot");
+      }
+    </style>
+
+    <!-- Documents styles -->
+    <style>
+      html, body, p {
+        margin: 0;
+        padding: 0;
+        font-size: 9pt;
+        line-height: 1;
+        font-family: 'Avenir LT Std 35 Light';
+      }
+
+      h1,h2,h3,h4,h5,h6 {
+        font-weight: normal;
+        margin: 0px;
+      }
+      h1,h2,h3,h5 {
+        color: #0395DE;
+      }
+      h1 {
+        font-size: 30pt;
+        font-family: 'Avenir LT Std 35 Light';
+        padding-top: 11mm;
+        padding-bottom: 9mm;
+        padding-right: 12mm;
+        text-align: center;
+      }
+      h2 {
+        font-size: 16pt;
+        font-family: 'Avenir LT Std 65 Medium';
+      }
+      h3 {
+        font-size: 14pt;
+        font-family: 'Avenir LT Std 45 Book';
+      }
+      h4 {
+        font-size: 10pt;
+        font-family: 'Avenir LT Std 85 Heavy';
+      }
+      h5 {
+        font-size: 10pt;
+        font-family: 'Avenir LT Std 55 Roman';
+        padding-right: 12mm;
+        position:absolute;
+        right:0px;
+        top:0px;
+        text-align: right;
+      }
+
+      hr{
+        border: 1.5pt solid #F6F6F6;
+      }
+      .date1{
+        font-size: 9pt;
+      }
+      .date2{
+        font-size: 8pt;
+        color: #616161;
+      }
+      .date1, .date2{
+        text-align: center;
+        width: 12mm;
+      }
+
+      .page {
+        page-break-after: always;
+        width: 210mm;
+        height: 297mm;
+        /*background-color:LIGHTYELLOW;*/ /*Use that to see document limits*/
+      }
+
+      /* Sidebar */
+      .sidebar-container {
+        float: left;
+        width: 60mm;
+        height: 297mm;
+        background-color: #F6F6F6
+      }
+      .sidebar {
+        padding-left: 12mm;
+      }
+
+      /* Body */
+      .body {
+        float: left;
+        width: 150mm;
+        height: 297mm;
+      }
+      .title-container{
+        width: 150mm;
+        padding-left: 4mm;
+        padding-top: 5mm;
+      }
+      .content{
+        float: left;
+        width: 150mm;
+        padding-top: 4mm;
+      }
+      .date2, .description{
+        padding-top: 2mm;
+      }
+      .date-container{
+        float: left;
+        padding-left: 8mm;
+        width: 13mm;
+      }
+      .content-container{
+        float: left;
+        width: 113mm;
+        position:relative;
+        padding-left: 3mm;
+        padding-right: 12mm;
+        border-left: 1px solid #F6F6F6;
+      }
+      .description{
+        line-height: 2;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+
+      <div class="sidebar-container">
+        <div class="sidebar">
+          <p>Test<p>
+        </div>
+      </div>
+
+      <div class="body">
+        <h1>John Doe</h1>
+
+        <hr>
+
+        <div class="title-container">
+          <h2>Experience</h2>
+        </div>
+
+        <div class="content">
+          <div class="date-container">
+            <p class="date1">04/2019</p>
+            <p class="date2">04/2017</p>
+          </div>
+          <div class="content-container">
+            <h4>Developer</h4>
+            <h5>Company</h5>
+            <div class="description">
+              <p>Description</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="date-container">
+            <p class="date1">04/2019</p>
+            <p class="date2">04/2017</p>
+          </div>
+          <div class="content-container">
+            <h4>Developer</h4>
+            <h5>Company</h5>
+            <div class="description">
+              <p>Description</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
