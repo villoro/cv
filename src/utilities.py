@@ -16,7 +16,7 @@ def get_content(name=None):
     """ Return content of the CV """
 
     if name is None:
-        name = c.DEFAULT_FILE
+        name = c.FILE_DEFAULT
         path = c.PATH_CONTENT
 
     else:
@@ -28,6 +28,6 @@ def get_content(name=None):
     out = _read_yaml(f"{path}{name}.yaml")
 
     # Add config data
-    out["config"] = _read_yaml(c.CONFIG_FILE)
+    out["config"] = _read_yaml(c.FILE_CONFIG)
 
     return out

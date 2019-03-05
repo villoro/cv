@@ -14,28 +14,28 @@ APP = Flask(__name__)
 def print_sample():
     """ Display the sample CV without any frame for printing """
 
-    return render_template(c.DEFAULT_TEMPLATE, **get_content())
+    return render_template(c.FILE_DEFAULT_TEMPLATE, **get_content())
 
 
 @APP.route("/")
 def preview_sample():
     """ Render the sample CV for previews """
 
-    return render_template(c.DEFAULT_TEMPLATE, preview=True, **get_content())
+    return render_template(c.FILE_DEFAULT_TEMPLATE, preview=True, **get_content())
 
 
 @APP.route("/print/<name>")
 def print(name):
     """ Display a CV without any frame for printing """
 
-    return render_template(c.DEFAULT_TEMPLATE, **get_content(name=name))
+    return render_template(c.FILE_DEFAULT_TEMPLATE, **get_content(name=name))
 
 
 @APP.route("/<name>")
 def preview(name):
     """ Render a CV for previews """
 
-    return render_template(c.DEFAULT_TEMPLATE, preview=True, **get_content(name=name))
+    return render_template(c.FILE_DEFAULT_TEMPLATE, preview=True, **get_content(name=name))
 
 
 if __name__ == "__main__":
