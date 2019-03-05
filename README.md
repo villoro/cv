@@ -24,7 +24,7 @@ You can view the full pdf [here](assets/sample.pdf).
 
 3. Run `create_pdf.sh` to create the pdf
 
-> You should change the `wkhtmltopdf` inside `create_pdf.sh`.
+> You should change the `wkhtmltopdf` path inside `create_pdf.sh`.
 
 4. You will now have `src/output/sample.pdf` with the result
 
@@ -34,7 +34,7 @@ There are two files to `src/content/data.yaml` and `src/content/config.yaml`.
 The first one (`data.yml`) has the actual content of the CV.
 The second (`config.yml`) allow users to change some parts of the template.
 
-If you want further configuration you can edit the templates (`src/templates/base.html` and `src/templates/cv.html`) directly or create your own.
+If you want further configuration you can edit the templates (`src/templates/base.html` and `src/templates/cv.html`) directly or create your own templates (recommended).
 
 ## Authors
 * [Arnau Villoro](villoro.com)
