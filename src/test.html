@@ -34,11 +34,11 @@
       }
 
       /* Titles */
-      h1,h2,h3,h4,h5,h6 {
+      h1, h2, h3, h4, h5, h6 {
         font-weight: normal;
         margin: 0px;
       }
-      h1,h2,h3,h5 {
+      h1, h2, h3, h5 {
         color: #0395DE;
       }
       h1 {
@@ -100,14 +100,24 @@
       }
 
       /* Content styles */
-      .skill-container{
+      .skill-container {
         padding-top: 3mm;
       }
       .skill-spacer {
         padding-top: 2mm;
         clear: both;
       }
-      .content{
+      .contact-container {
+        display: table;
+        float: left;
+        height: 4mm;
+        padding-left: 2mm;
+      }
+      .contact-text {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .content {
         float: left;
         width: 150mm;
         padding-top: 4mm;
@@ -115,26 +125,26 @@
       .spacer {
         clear: both;
       }
-      .date-container{
+      .date-container {
         float: left;
         padding-left: 8mm;
         width: 13mm;
       }
-      .date2, .description{
+      .date2, .description {
         padding-top: 2mm;
       }
-      .date1{
+      .date1 {
         font-size: 9pt;
       }
-      .date2{
+      .date2 {
         font-size: 8pt;
         color: #616161;
       }
-      .date1, .date2{
+      .date1, .date2 {
         text-align: center;
         width: 12mm;
       }
-      .description-container{
+      .description-container {
         float: left;
         width: 113mm;
         position:relative;
@@ -142,15 +152,15 @@
         padding-right: 12mm;
         border-left: 1px solid #F6F6F6;
       }
-      .description{
+      .description {
         line-height: 2;
       }
 
       /* Bars */
-      .bar-container{
+      .bar-container {
         padding-top: 1mm;
       }
-      .bar-grey, .bar-blue{
+      .bar-grey, .bar-blue {
         height: 1mm;
         float: left;
       }
@@ -160,6 +170,13 @@
       .bar-blue {
         background-color: #0395DE;
       }
+
+      /* Images */
+      .icon {
+        width: 4mm;
+        height: 4mm;
+        float: left;
+      }
     </style>
   </head>
 
@@ -168,6 +185,25 @@
 
       <div class="sidebar-background">
         <div class="sidebar">
+
+          <h3>Contact</h3>
+
+          <div class="skill-container">
+            <img class="icon" src="icons/address.jpg">
+            <div class="contact-container">
+              <p class="contact-text">Barcelona</p>
+            </div>
+          </div>
+          <div class="spacer"></div>
+
+          <div class="skill-container">
+            <img class="icon" src="icons/address.jpg">
+            <div class="contact-container">
+              <p class="contact-text">Barcelona</p>
+            </div>
+          </div>
+          <div class="spacer"></div>
+
           <h3>Skills</h3>
 
           <div class="skill-container">

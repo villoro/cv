@@ -1,3 +1,5 @@
+cd src
+
 :loop
 
 "C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"^
