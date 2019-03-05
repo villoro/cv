@@ -76,11 +76,19 @@
         text-align: right;
       }
 
+      /* Layout styles */
+      .frame {
+        padding-top: {{ config["frame_padding"] }}mm;
+        padding-bottom: {{ config["frame_padding"] }}mm;
+        padding-left: {{ config["frame_padding"] }}mm;
+        padding-right: {{ config["frame_padding"] }}mm;
+        background-color: {{ config["frame_color"] }};
+      }
       .page {
         page-break-after: always;
         width: {{ config["page_width"] }}mm;
         height: {{ config["page_height"] }}mm;
-        /*background-color:LIGHTYELLOW;*/ /*Use that to see document limits*/
+        background-color: white;
       }
       .sidebar-background {
         float: left;
@@ -185,17 +193,24 @@
   </head>
 
   <body>
-    <div class="page">
+    
+    <!-- This will add a nice frame when previewing but not when printing -->
+    {% if preview %}<div class="frame">{% endif %} 
 
-      <div class="sidebar-background">
-        <div class="sidebar">
-          {% block sidebar %}{% endblock %}
+      <div class="page">
+        <div class="sidebar-background">
+          <div class="sidebar">
+            {% block sidebar %}{% endblock %}
+          </div>
+        </div>
+
+        <div class="body">
+          {% block body %}{% endblock %}
         </div>
       </div>
 
-      <div class="body">
-        {% block body %}{% endblock %}
-      </div>
-    </div>
+    <!-- And the closing of the frame -->
+    {% if preview %}</div>{% endif %}
+
   </body>
 </html>
