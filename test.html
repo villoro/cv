@@ -48,14 +48,19 @@
         padding-bottom: 9mm;
         padding-right: 12mm;
         text-align: center;
+        border-bottom: 3px solid #F6F6F6;
       }
       h2 {
         font-size: 16pt;
         font-family: 'Avenir LT Std 55 Roman';
+        width: 150mm;
+        padding-top: 5mm;
+        padding-left: 4mm;
       }
       h3 {
         font-size: 14pt;
         font-family: 'Avenir LT Std 45 Book';
+        padding-top: 7mm;
       }
       h4 {
         font-size: 10pt;
@@ -71,10 +76,6 @@
         text-align: right;
       }
 
-      /* Page layout */
-      hr{
-        border: 2px solid #F6F6F6;
-      }
       .page {
         page-break-after: always;
         width: 210mm;
@@ -88,7 +89,9 @@
         background-color: #F6F6F6
       }
       .sidebar {
+        padding-top: 12mm;
         padding-left: 12mm;
+        padding-right: 12mm;
       }
       .body {
         float: left;
@@ -97,15 +100,20 @@
       }
 
       /* Content styles */
-      .h2-container{
-        width: 150mm;
-        padding-left: 4mm;
-        padding-top: 5mm;
+      .skill-container{
+        padding-top: 3mm;
+      }
+      .skill-spacer {
+        padding-top: 2mm;
+        clear: both;
       }
       .content{
         float: left;
         width: 150mm;
         padding-top: 4mm;
+      }
+      .spacer {
+        clear: both;
       }
       .date-container{
         float: left;
@@ -137,6 +145,21 @@
       .description{
         line-height: 2;
       }
+
+      /* Bars */
+      .bar-container{
+        padding-top: 1mm;
+      }
+      .bar-grey, .bar-blue{
+        height: 1mm;
+        float: left;
+      }
+      .bar-grey {
+        background-color: #DFDFDF;
+      }
+      .bar-blue {
+        background-color: #0395DE;
+      }
     </style>
   </head>
 
@@ -145,45 +168,65 @@
 
       <div class="sidebar-background">
         <div class="sidebar">
-          <p>Test<p>
+          <h3>Skills</h3>
+
+          <div class="skill-container">
+            <p>Python</p>
+            <div class="bar-container">
+              <div class="bar-blue" style="width: 30mm"></div>
+              <div class="bar-grey" style="width: 6mm"></div>
+            </div>
+            <div class="skill-spacer"></div>
+
+            <p>Python</p>
+            <div class="bar-container">
+              <div class="bar-blue" style="width: 28mm"></div>
+              <div class="bar-grey" style="width: 8mm"></div>
+            </div>
+            <div class="skill-spacer"></div>
+          </div>
+
+          <h3>Languages</h3>
         </div>
       </div>
 
       <div class="body">
         <h1>John Doe</h1>
 
-        <hr>
+        <h2>Experience</h2>
+
+        <div class="content">
+          <div class="date-container">
+            <p class="date1">04/2019</p>
+            <p class="date2">04/2017</p>
+          </div>
+          <div class="description-container">
+            <h4>Developer</h4>
+            <h5>Company</h5>
+            <div class="description">
+              <p>Description</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="date-container">
+            <p class="date1">04/2019</p>
+            <p class="date2">04/2017</p>
+          </div>
+          <div class="description-container">
+            <h4>Developer</h4>
+            <h5>Company</h5>
+            <div class="description">
+              <p>Description</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
 
         <div class="h2-container">
           <h2>Experience</h2>
-        </div>
-
-        <div class="content">
-          <div class="date-container">
-            <p class="date1">04/2019</p>
-            <p class="date2">04/2017</p>
-          </div>
-          <div class="description-container">
-            <h4>Developer</h4>
-            <h5>Company</h5>
-            <div class="description">
-              <p>Description</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="content">
-          <div class="date-container">
-            <p class="date1">04/2019</p>
-            <p class="date2">04/2017</p>
-          </div>
-          <div class="description-container">
-            <h4>Developer</h4>
-            <h5>Company</h5>
-            <div class="description">
-              <p>Description</p>
-            </div>
-          </div>
         </div>
 
       </div>
