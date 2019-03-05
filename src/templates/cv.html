@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block sidebar%}
+
+  <img class="profile" src="{{ url_for('static', filename=image_uri) }}">
+
+  <h3>Contact</h3>
+
+  <div class="skill-container">
+    <img class="icon" src="{{ url_for('static', filename='icons/address.jpg') }}">
+    <div class="contact-container">
+      <p class="contact-text">{{ address }}</p>
+    </div>
+  </div>
+  <div class="spacer"></div>
+
+  <div class="skill-container">
+    <img class="icon" src="{{ url_for('static', filename='icons/phone.jpg') }}">
+    <div class="contact-container">
+      <p class="contact-text">{{ phone }}</p>
+    </div>
+  </div>
+  <div class="spacer"></div>
+
+  <div class="skill-container">
+    <img class="icon" src="{{ url_for('static', filename='icons/web.jpg') }}">
+    <div class="contact-container">
+      <p class="contact-text">{{ web }}</p>
+    </div>
+  </div>
+  <div class="spacer"></div>
+
+  <div class="skill-container">
+    <img class="icon" src="{{ url_for('static', filename='icons/linkedin.jpg') }}">
+    <div class="contact-container">
+      <p class="contact-text">{{ linkedin }}</p>
+    </div>
+  </div>
+  <div class="spacer"></div>
+
+  <div class="skill-container">
+    <img class="icon" src="{{ url_for('static', filename='icons/email.jpg') }}">
+    <div class="contact-container">
+      <p class="contact-text">{{ email }}</p>
+    </div>
+  </div>
+  <div class="spacer"></div>
+
+  {% for block_name, data in sidebar.items() %}
+    <h3>{{ block_name }}</h3>
+
+    <div class="skill-container">
+
+      {% for name, value in data.items() %}
+        <p>{{ name }}</p>
+        <div class="bar-container">
+          <div class="bar-blue" style="width: {{ value }}mm"></div>
+          <div class="bar-grey" style="width: {{ config['sidebar_width'] - 2*config['padding'] - value }}mm"></div>
+        </div>
+        <div class="skill-spacer"></div>
+      {% endfor %}
+
+    </div>
+  {% endfor %}
+
+{% endblock %}
+
+
+{% block body%}
+  <h1>{{ full_name }}</h1>
+
+  {% for name, data in body.items() %}
+    <h2> {{ name }}</h2>
+
+    {% for x in data %}
+      <div class="content">
+        <div class="date-container">
+          <p class="date1">{{ x["end"] }}</p>
+          <p class="date2">{{ x["start"] }}</p>
+        </div>
+        <div class="description-container">
+          <h4>{{ x["title"] }}</h4>
+          <h5>{{ x["company"] }}</h5>
+          <div class="description">
+            <p>{{ x["description"] }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="spacer"></div>
+  {% endfor %}
+
+{% endblock %}

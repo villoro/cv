@@ -1,0 +1,56 @@
+full_name: John Doe
+address: False street
+phone: 555 555 5555
+web: http://web.com
+linkedin: in/user.com
+email: email@email.com
+
+image_uri: images/profile.jpg
+
+# Max value will be sidebar_width - 2*padding = 36 by default
+sidebar:
+  Skills:
+    Python: 36
+    Java: 25
+
+  Languages:
+    English: 30
+    Spanish: 25
+
+body:
+  Experience:
+    -
+      start: 01/2019
+      end: Actual
+      title: Developer
+      company: Basetis
+      description: Description
+
+    -
+      start: 09/2018
+      end: 12/2018
+      title: Backend
+      company: Basetis
+      description: Description
+
+  Education:
+    -
+      start: 09/2010
+      end: 09/2015
+      title: Engineering
+      company: UPC
+      description: Description
+
+    -
+      start: 09/2010
+      end: 09/2015
+      title: Engineering
+      company: UPC
+      description: Description
+
+    -
+      start: 09/2010
+      end: 09/2015
+      title: Engineering
+      company: UPC
+      description: Description

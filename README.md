@@ -1,6 +1,40 @@
 # Easy CV
 
-Create `html` and/or `pdf` CVs.
+Create a `pdf` CV based on some `html` templates and data from `yaml`.
+
+Screenshot of the result:
+![home](assets/preview.jpg)
+
+You can view the full pdf [here](assets/sample.pdf).
+
+## Installation
+1. Install all python packages with
+
+	pip install -r requirements.txt
+
+2. Install [wkhtmltopdf](https://wkhtmltopdf.org/)
+
+## Usage
+
+1. First start the `flask` server from the root folder with:
+
+	python src/index.py
+
+2. Open `http://localhost:5000/` to preview the result
+
+3. Run `create_pdf.sh` to create the pdf
+
+> You should change the `wkhtmltopdf` path inside `create_pdf.sh`.
+
+4. You will now have `src/output/sample.pdf` with the result
+
+## Configuration
+There are two files to `src/content/data.yaml` and `src/content/config.yaml`.
+
+The first one (`data.yml`) has the actual content of the CV.
+The second (`config.yml`) allow users to change some parts of the template.
+
+If you want further configuration you can edit the templates (`src/templates/base.html` and `src/templates/cv.html`) directly or create your own templates (recommended).
 
 ## Authors
 * [Arnau Villoro](villoro.com)
