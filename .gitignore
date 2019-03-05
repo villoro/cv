@@ -55,3 +55,7 @@ dist/
 */temp.md
 */*/temp.md
 */temp.ipynb
+
+# Hide input and output
+input/*.yaml
+output/*.pdf

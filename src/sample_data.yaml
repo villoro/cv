@@ -54,3 +54,11 @@ body:
       title: Engineering
       company: UPC
       description: Description
+
+    # You can comment sections you don't want to show
+    # -
+    #   start: 09/1901
+    #   end: 09/1900
+    #   title: Elementary school
+    #   company: Funny name
+    #   description: Description

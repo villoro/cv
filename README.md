@@ -16,23 +16,35 @@ You can view the full pdf [here](assets/sample.pdf).
 
 ## Usage
 
-1. First start the `flask` server from the root folder with:
+### 1. Create your CVs
+
+Copy `src/sample_data.yaml` to the folder `input` and rename it to whatever you like. For example `input/cv1.yaml`.
+
+### 2. Start Flask
+Start the `flask` server from the root folder with:
 
 	python src/index.py
 
-2. Open `http://localhost:5000/` to preview the result
+### 3. Preview the result
+Open `http://localhost:5000/` to preview the result
 
-3. Run `create_pdf.sh` to create the pdf
+You can also view any file (like `cv1.yml`) from the `input` folder with the url `http://localhost:5000/cv1`.
 
-> You should change the `wkhtmltopdf` path inside `create_pdf.sh`.
+### 4. Create the pdf
 
-4. You will now have `src/output/sample.pdf` with the result
+With `create_sample.sh` you can create the `assets/sample.pdf`
+
+To create the pdf for all `yaml` files inside the `input/` folder run from the main path:
+
+	python src/do_all.py
+
+> You should change the `wkhtmltopdf` path inside `config.py` and/or `create_sample.sh`.
 
 ## Configuration
-There are two files to `src/content/data.yaml` and `src/content/config.yaml`.
+There are two files to `src/sample_data.yaml` and `src/config.yaml`.
 
-The first one (`data.yml`) has the actual content of the CV.
-The second (`config.yml`) allow users to change some parts of the template.
+The first one (`sample_data.yaml`) has the actual content of the CV.
+The second (`config.yaml`) allow users to change some parts of the template.
 
 If you want further configuration you can edit the templates (`src/templates/base.html` and `src/templates/cv.html`) directly or create your own templates (recommended).
 

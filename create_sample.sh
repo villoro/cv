@@ -4,6 +4,4 @@
  --print-media-type --dpi 300 \
  -T 0 -B 0 -L 0 -R 0 \
  localhost:5000/print.html \
- src/output/sample.pdf
-
-echo file src/output/sample.pdf created
+ assets/sample.pdf

@@ -4,29 +4,38 @@
 
 from flask import Flask, render_template
 
-from utilities import get_content, get_config
+import config as c
+from utilities import get_content
 
 APP = Flask(__name__)
 
 
 @APP.route("/print.html")
-def print():
-    """ Display CV without any frame for printing """
+def print_sample():
+    """ Display the sample CV without any frame for printing """
 
-    content = get_content()
-    config = get_config()
-
-    return render_template("cv.html", config=config, **content)
+    return render_template(c.FILE_DEFAULT_TEMPLATE, **get_content())
 
 
 @APP.route("/")
-def preview():
-    """ Render the CV before converting to html """
+def preview_sample():
+    """ Render the sample CV for previews """
 
-    content = get_content()
-    config = get_config()
+    return render_template(c.FILE_DEFAULT_TEMPLATE, preview=True, **get_content())
 
-    return render_template("cv.html", preview=True, config=config, **content)
+
+@APP.route("/print/<name>")
+def print(name):
+    """ Display a CV without any frame for printing """
+
+    return render_template(c.FILE_DEFAULT_TEMPLATE, **get_content(name=name))
+
+
+@APP.route("/<name>")
+def preview(name):
+    """ Render a CV for previews """
+
+    return render_template(c.FILE_DEFAULT_TEMPLATE, preview=True, **get_content(name=name))
 
 
 if __name__ == "__main__":
