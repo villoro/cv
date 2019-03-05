@@ -7,7 +7,7 @@ cd src
  --javascript-delay 5000^
  --print-media-type --dpi 300^
  -T 0 -B 0 -L 0 -R 0^
- test.html^
- test.pdf
+ localhost:5000^
+ output/sample.pdf
 
 goto loop

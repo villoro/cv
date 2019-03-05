@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block sidebar%}
+
+  <img class="profile" src="{{ url_for('static', filename=image_uri) }}">
+
   <h3>Contact</h3>
 
   <div class="skill-container">

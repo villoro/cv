@@ -2,6 +2,8 @@
 
 import oyaml as yaml
 
+PATH_CONTENT = "src/content/"
+
 
 def _read_yaml(uri):
     """ auxiliar function to raad a yaml """
@@ -12,9 +14,9 @@ def _read_yaml(uri):
 
 def get_content():
     """ Return content of the CV """
-    return _read_yaml(f"content/data.yaml")
+    return _read_yaml(f"{PATH_CONTENT}data.yaml")
 
 
 def get_config():
     """ Return configuration of the page """
-    return _read_yaml("content/config.yaml")
+    return _read_yaml(f"{PATH_CONTENT}config.yaml")

@@ -5,6 +5,8 @@ web: http://web.com
 linkedin: in/user.com
 email: email@email.com
 
+image_uri: images/profile.jpg
+
 # Max value will be sidebar_width - 2*padding = 36 by default
 sidebar:
   Skills:
@@ -29,4 +31,26 @@ body:
       end: 12/2018
       title: Backend
       company: Basetis
+      description: Description
+
+  Education:
+    -
+      start: 09/2010
+      end: 09/2015
+      title: Engineering
+      company: UPC
+      description: Description
+
+    -
+      start: 09/2010
+      end: 09/2015
+      title: Engineering
+      company: UPC
+      description: Description
+
+    -
+      start: 09/2010
+      end: 09/2015
+      title: Engineering
+      company: UPC
       description: Description
