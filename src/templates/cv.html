@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block sidebar%}
+<h3>Contact</h3>
+
+<div class="skill-container">
+  <img class="icon" src="{{ url_for('static', filename='icons/address.jpg') }}">
+  <div class="contact-container">
+    <p class="contact-text">Barcelona</p>
+  </div>
+</div>
+<div class="spacer"></div>
+
+<div class="skill-container">
+  <img class="icon" src="{{ url_for('static', filename='icons/address.jpg') }}">
+  <div class="contact-container">
+    <p class="contact-text">Barcelona</p>
+  </div>
+</div>
+<div class="spacer"></div>
+
+<h3>Skills</h3>
+
+<div class="skill-container">
+  <p>Python</p>
+  <div class="bar-container">
+    <div class="bar-blue" style="width: 30mm"></div>
+    <div class="bar-grey" style="width: 6mm"></div>
+  </div>
+  <div class="skill-spacer"></div>
+
+  <p>Python</p>
+  <div class="bar-container">
+    <div class="bar-blue" style="width: 28mm"></div>
+    <div class="bar-grey" style="width: 8mm"></div>
+  </div>
+  <div class="skill-spacer"></div>
+</div>
+
+<h3>Languages</h3>
+{% endblock %}
+
+
+{% block body%}
+<h1>John Doe</h1>
+
+<h2>Experience</h2>
+
+<div class="content">
+  <div class="date-container">
+    <p class="date1">04/2019</p>
+    <p class="date2">04/2017</p>
+  </div>
+  <div class="description-container">
+    <h4>Developer</h4>
+    <h5>Company</h5>
+    <div class="description">
+      <p>Description</p>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="date-container">
+    <p class="date1">04/2019</p>
+    <p class="date2">04/2017</p>
+  </div>
+  <div class="description-container">
+    <h4>Developer</h4>
+    <h5>Company</h5>
+    <div class="description">
+      <p>Description</p>
+    </div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="h2-container">
+  <h2>Experience</h2>
+</div>
+{% endblock %}
