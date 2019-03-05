@@ -2,7 +2,7 @@
 
 import oyaml as yaml
 
-PATH_CONTENT = "src/content/"
+import config as c
 
 
 def _read_yaml(uri):
@@ -12,11 +12,22 @@ def _read_yaml(uri):
         return yaml.load(file)
 
 
-def get_content():
+def get_content(name=None):
     """ Return content of the CV """
-    return _read_yaml(f"{PATH_CONTENT}data.yaml")
 
+    if name is None:
+        name = c.DEFAULT_FILE
+        path = c.PATH_CONTENT
 
-def get_config():
-    """ Return configuration of the page """
-    return _read_yaml(f"{PATH_CONTENT}config.yaml")
+    else:
+        # No extension if present
+        name = name.split(".")[0]
+        path = c.PATH_INPUT
+
+    # Read data
+    out = _read_yaml(f"{path}{name}.yaml")
+
+    # Add config data
+    out["config"] = _read_yaml(c.CONFIG_FILE)
+
+    return out
