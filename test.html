@@ -6,28 +6,25 @@
     <style>
       @font-face {
         font-family: "Avenir LT Std 35 Light";
-        src: url("file:///C:/PYTHON/cv/AvenirLTStd-Light.otf");
+        src: url("file:///C:/PYTHON/cv/fonts/AvenirLTStd-Light.otf");
       }
       @font-face {
         font-family: "Avenir LT Std 45 Book";
-        src: url("file:///C:/PYTHON/cv/AvenirLTStd-Book.otf");
+        src: url("file:///C:/PYTHON/cv/fonts/AvenirLTStd-Book.otf");
       }
       @font-face {
         font-family: "Avenir LT Std 55 Roman";
-        src: url("file:///C:/PYTHON/cv/AvenirLTStd-Roman.otf");
+        src: url("file:///C:/PYTHON/cv/fonts/AvenirLTStd-Roman.otf");
       }
       @font-face {
         font-family: "Avenir LT Std 65 Medium";
-        src: url("file:///C:/PYTHON/cv/AvenirLTStd-Medium.otf");
-      }
-      @font-face {
-        font-family: "Avenir LT Std 85 Heavy";
-        src: url("//db.onlinewebfonts.com/t/b9f8585bf9e014e2d6f38c0a927e9fd9.eot");
+        src: url("file:///C:/PYTHON/cv/fonts/AvenirLTStd-Medium.otf");
       }
     </style>
 
     <!-- Documents styles -->
     <style>
+      /* General style */
       html, body, p {
         margin: 0;
         padding: 0;
@@ -36,6 +33,7 @@
         font-family: 'Avenir LT Std 35 Light';
       }
 
+      /* Titles */
       h1,h2,h3,h4,h5,h6 {
         font-weight: normal;
         margin: 0px;
@@ -73,8 +71,49 @@
         text-align: right;
       }
 
+      /* Page layout */
       hr{
-        border: 1.5pt solid #F6F6F6;
+        border: 2px solid #F6F6F6;
+      }
+      .page {
+        page-break-after: always;
+        width: 210mm;
+        height: 297mm;
+        /*background-color:LIGHTYELLOW;*/ /*Use that to see document limits*/
+      }
+      .sidebar-background {
+        float: left;
+        width: 60mm;
+        height: 297mm;
+        background-color: #F6F6F6
+      }
+      .sidebar {
+        padding-left: 12mm;
+      }
+      .body {
+        float: left;
+        width: 150mm;
+        height: 297mm;
+      }
+
+      /* Content styles */
+      .h2-container{
+        width: 150mm;
+        padding-left: 4mm;
+        padding-top: 5mm;
+      }
+      .content{
+        float: left;
+        width: 150mm;
+        padding-top: 4mm;
+      }
+      .date-container{
+        float: left;
+        padding-left: 8mm;
+        width: 13mm;
+      }
+      .date2, .description{
+        padding-top: 2mm;
       }
       .date1{
         font-size: 9pt;
@@ -87,50 +126,7 @@
         text-align: center;
         width: 12mm;
       }
-
-      .page {
-        page-break-after: always;
-        width: 210mm;
-        height: 297mm;
-        /*background-color:LIGHTYELLOW;*/ /*Use that to see document limits*/
-      }
-
-      /* Sidebar */
-      .sidebar-container {
-        float: left;
-        width: 60mm;
-        height: 297mm;
-        background-color: #F6F6F6
-      }
-      .sidebar {
-        padding-left: 12mm;
-      }
-
-      /* Body */
-      .body {
-        float: left;
-        width: 150mm;
-        height: 297mm;
-      }
-      .title-container{
-        width: 150mm;
-        padding-left: 4mm;
-        padding-top: 5mm;
-      }
-      .content{
-        float: left;
-        width: 150mm;
-        padding-top: 4mm;
-      }
-      .date2, .description{
-        padding-top: 2mm;
-      }
-      .date-container{
-        float: left;
-        padding-left: 8mm;
-        width: 13mm;
-      }
-      .content-container{
+      .description-container{
         float: left;
         width: 113mm;
         position:relative;
@@ -147,7 +143,7 @@
   <body>
     <div class="page">
 
-      <div class="sidebar-container">
+      <div class="sidebar-background">
         <div class="sidebar">
           <p>Test<p>
         </div>
@@ -158,7 +154,7 @@
 
         <hr>
 
-        <div class="title-container">
+        <div class="h2-container">
           <h2>Experience</h2>
         </div>
 
@@ -167,7 +163,7 @@
             <p class="date1">04/2019</p>
             <p class="date2">04/2017</p>
           </div>
-          <div class="content-container">
+          <div class="description-container">
             <h4>Developer</h4>
             <h5>Company</h5>
             <div class="description">
@@ -181,7 +177,7 @@
             <p class="date1">04/2019</p>
             <p class="date2">04/2017</p>
           </div>
-          <div class="content-container">
+          <div class="description-container">
             <h4>Developer</h4>
             <h5>Company</h5>
             <div class="description">
