@@ -1,4 +1,4 @@
-# Colors
+# Document colors
 theme_color: "#0395DE" # Cool blue
 sidebar_color: "#F6F6F6" # Light grey
 bar_background_color: "#DFDFDF" # Darker light grey
@@ -18,5 +18,5 @@ date_container_padding_left: 8
 description_container_padding_left: 3
 
 # Frame for previewing
-frame_padding: 10 # For preview in html
-frame_color: "#BDBDBD"
+frame_padding: 10
+frame_color: "#757575" # Grey 600

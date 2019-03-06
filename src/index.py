@@ -31,7 +31,7 @@ def print(name):
     return render_template(c.FILE_DEFAULT_TEMPLATE, **get_content(name))
 
 
-@APP.route("/<name>")
+@APP.route("/v/<name>")
 def preview(name):
     """ Render a CV for previews """
 

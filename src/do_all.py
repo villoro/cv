@@ -6,7 +6,7 @@ from subprocess import call
 import config as c
 
 WKHTML_CONFIG_DICT = {
-    "--javascript-delay": 5000,  # With a high number we allow the fonts to load
+    "--javascript-delay": 3000,  # With a high number we allow the fonts to load
     "--dpi": 300,  # Having this number high prevents resolution problems
     "-T": 0,
     "-B": 0,
@@ -16,9 +16,9 @@ WKHTML_CONFIG_DICT = {
 
 WKHTML_CONFIG_LIST = [
     "--disable-smart-shrinking",
-    "--enable-external-links",
     "--print-media-type",
-    "--keep-relative-links",
+    # "--enable-external-links",
+    # "--keep-relative-links",
 ]
 
 # PATH_WKHTML needs to be around " "

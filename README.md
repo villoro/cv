@@ -28,7 +28,7 @@ Start the `flask` server from the root folder with:
 ### 3. Preview the result
 Open `http://localhost:5000/` to preview the result
 
-You can also view any file (like `cv1.yml`) from the `input` folder with the url `http://localhost:5000/cv1`.
+You can also view any file (like `cv1.yml`) from the `input` folder with the url `http://localhost:5000/v/cv1`.
 
 ### 4. Create the pdf
 
