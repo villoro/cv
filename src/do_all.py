@@ -14,7 +14,12 @@ WKHTML_CONFIG_DICT = {
     "-R": 0,
 }
 
-WKHTML_CONFIG_LIST = ["--disable-smart-shrinking", "--enable-external-links", "--print-media-type"]
+WKHTML_CONFIG_LIST = [
+    "--disable-smart-shrinking",
+    "--enable-external-links",
+    "--print-media-type",
+    "--keep-relative-links",
+]
 
 # PATH_WKHTML needs to be around " "
 # The other part is a concat of all options

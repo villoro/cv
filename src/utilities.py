@@ -16,12 +16,15 @@ def _read_yaml(uri):
 def _transform_from_markdown(data):
     """ Transform markdown text to html """
 
+    # Main description of CV
+    if "description" in data:
+        data["description"] = markdown(data["description"])
+
+    # Descriptions in body
     for block_name, block_data in data["body"].items():
         for x in block_data:
             if "description" in x:
                 x["description"] = markdown(x["description"])
-
-    return data
 
 
 def get_content(name=None):
@@ -38,9 +41,7 @@ def get_content(name=None):
 
     # Read data
     out = _read_yaml(f"{path}{name}.yaml")
-
-    # Transform description from markdown
-    out = _transform_from_markdown(out)
+    _transform_from_markdown(out)
 
     # Add config data
     out["config"] = _read_yaml(c.FILE_CONFIG)

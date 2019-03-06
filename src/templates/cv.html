@@ -2,7 +2,9 @@
 
 {% block sidebar%}
 
-  <img class="profile" src="{{ url_for('static', filename=image_uri) }}">
+  {% if image_uri %}
+    <img class="profile" src="{{ url_for('static', filename=image_uri) }}">
+  {% endif %}
 
   <h3>{{ contact_title }}</h3>
 
