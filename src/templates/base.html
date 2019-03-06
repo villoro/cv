@@ -85,9 +85,6 @@
       ul {
         list-style-type: none;
       }
-      p, li {
-        margin-bottom: 1.2mm; /* This gives some space between lines in general */
-      }
       li:before {
         content: "- ";
       }
@@ -126,7 +123,6 @@
 
       /* Content styles */
       .pitch {
-        font-size: 10pt;
         padding-top: {{ config["pitch_padding_top"] }}mm;
         padding-bottom: {{ config["pitch_padding_bottom"] }}mm;
         padding-left: {{ config["pitch_padding_left"] }}mm;
@@ -153,7 +149,7 @@
       .content {
         float: left;
         width: {{ config["page_width"] - config["sidebar_width"] }}mm;
-        padding-top: 3mm;
+        padding-top: 4mm;
       }
       .spacer {
         clear: both;
@@ -187,6 +183,16 @@
       }
       .description {
         line-height: 2;
+      }
+
+      /* Space between lines */
+      .pitch p {
+        font-size: 9pt;
+        line-height: 1.4;
+      }
+
+      .description p, .description li {
+        line-height: 1.4;
       }
 
       /* Bars */
