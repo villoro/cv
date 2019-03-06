@@ -25,7 +25,7 @@
     <!-- Documents styles -->
     <style>
       /* General style */
-      html, body, p {
+      html, body, p, ul, li {
         margin: 0;
         padding: 0;
         font-size: 9pt;
@@ -45,7 +45,7 @@
         font-size: 30pt;
         font-family: 'Avenir 35';
         padding-top: 11mm;
-        padding-bottom: 9mm;
+        padding-bottom: 10mm;
         padding-right: {{ config["padding"] }}mm;
         text-align: center;
         border-bottom: 3px solid {{ config["sidebar_color"] }};
@@ -74,6 +74,21 @@
         right:0px;
         top:0px;
         text-align: right;
+      }
+      a {
+          color: inherit; /* blue colors for links too */
+          text-decoration: inherit; /* no underline */
+      }
+
+      /* List styles */
+      ul {
+        list-style-type: none;
+      }
+      p, li {
+        margin-bottom: 1.2mm; /* This gives some space between lines in general */
+      }
+      li:before {
+        content: "- ";
       }
 
       /* Layout styles */
