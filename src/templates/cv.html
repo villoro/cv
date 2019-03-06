@@ -74,7 +74,9 @@
     <div class="skill-container">
 
       {% for name, value in data.items() %}
-        <p>{{ name }}</p>
+        <p style="margin-bottom: 0">
+          {{ name }}
+        </p>
         <div class="bar-container">
           <div class="bar-blue" style="width: {{ value }}mm"></div>
           <div class="bar-grey" style="width: {{ config['sidebar_width'] - 2*config['padding'] - value }}mm"></div>
@@ -99,8 +101,15 @@
 
         <!-- Date Sidebar -->
         <div class="date-container">
-          <p class="date1">{{ data["end"] }}</p>
-          <p class="date2">{{ data["start"] }}</p>
+          <p class="date1">
+            {{ data["end"] }}
+          </p>
+
+          {% if data["start"] %}
+            <p class="date2">
+              {{ data["start"] }}
+            </p>
+          {% endif %} 
         </div>
 
         <!-- Content itself -->
@@ -108,7 +117,11 @@
 
           <!-- Allows to add a link to the title -->
           {% if data["title_link"] %}<a href="{{ data['title_link'] }}">{% endif %} 
-            <h4>{{ data["title"] }}</h4>
+
+            <!-- If there is description use h4, else regular text -->
+            {% if data["description"] %}<h4>{% else %}<p>{% endif %} 
+              {{ data["title"] }}
+            {% if data["description"] %}</h4>{% else %}</p>{% endif %} 
           {% if data["title_link"] %}</a>{% endif %} 
 
           <!-- Allows to add a link to the company -->
@@ -116,11 +129,13 @@
             <h5>{{ data["company"] }}</h5>
           {% if data["company_link"] %}</a>{% endif %}
 
-          <div class="description">
-            {% autoescape false %}
-              {{ data["description"] }}
-            {% endautoescape %}
-          </div>
+          {% if data["description"] %}
+            <div class="description">
+              {% autoescape false %}
+                {{ data["description"] }}
+              {% endautoescape %}
+            </div>
+          {% endif %} 
 
         </div>
       </div>

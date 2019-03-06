@@ -18,7 +18,8 @@ def _transform_from_markdown(data):
 
     for block_name, block_data in data["body"].items():
         for x in block_data:
-            x["description"] = markdown(x["description"])
+            if "description" in x:
+                x["description"] = markdown(x["description"])
 
     return data
 

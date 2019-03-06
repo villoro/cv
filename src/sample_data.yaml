@@ -10,7 +10,7 @@ web: http://web.com
 linkedin: in/user.com
 email: email@email.com
 
-image_uri: images/profile.jpg
+image_uri: profile.jpg
 
 # Max value will be sidebar_width - 2*padding = 36 by default
 sidebar:
