@@ -99,6 +99,14 @@
 {% block body%}
   <h1>{{ full_name }}</h1>
 
+  {% if description %}
+  <div class="pitch">
+    {% autoescape false %}
+      {{ description }}
+    {% endautoescape %}
+  </div>
+  {% endif %} 
+
   {% for name, block_data in body.items() %}
     <h2> {{ name }}</h2>
 

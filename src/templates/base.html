@@ -45,7 +45,7 @@
         font-size: 30pt;
         font-family: 'Avenir 35';
         padding-top: 11mm;
-        padding-bottom: 10mm;
+        padding-bottom: 8.5mm;
         padding-right: {{ config["padding"] }}mm;
         text-align: center;
         border-bottom: 3px solid {{ config["sidebar_color"] }};
@@ -114,6 +114,7 @@
       }
       .sidebar {
         padding-top: {{ config["padding"] }}mm;
+        padding-bottom: {{ config["padding"] }}mm;
         padding-left: {{ config["padding"] }}mm;
         padding-right: {{ config["padding"] }}mm;
       }
@@ -124,6 +125,14 @@
       }
 
       /* Content styles */
+      .pitch {
+        font-size: 10pt;
+        padding-top: {{ config["pitch_padding_top"] }}mm;
+        padding-bottom: {{ config["pitch_padding_bottom"] }}mm;
+        padding-left: {{ config["pitch_padding_left"] }}mm;
+        padding-right: {{ config["padding"] }}mm;
+        border-bottom: 2px solid {{ config["sidebar_color"] }};
+      }
       .skill-container {
         padding-top: 3mm;
       }
@@ -174,7 +183,7 @@
         width: {{ config["page_width"] - config["sidebar_width"] - config["padding"] - config["date_container_width"] - config["date_container_padding_left"] - config["description_container_padding_left"] - 1}}mm;
         padding-left: {{ config["description_container_padding_left"] }}mm;
         padding-right: {{ config["padding"] }}mm;
-        border-left: 1px solid {{ config["sidebar_color"] }};
+        border-left: 2px solid {{ config["sidebar_color"] }};
       }
       .description {
         line-height: 2;
