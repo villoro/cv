@@ -59,3 +59,6 @@ dist/
 # Hide input and output
 input/*.yaml
 output/*.pdf
+
+# Hide images
+src/static/images/*
