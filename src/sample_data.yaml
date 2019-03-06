@@ -1,11 +1,16 @@
 full_name: John Doe
-address: False street
+
+# Address should be a list (with only one element if needed)
+address: 
+  - False street
+  - ZIP_NUM Country
+
 phone: 555 555 5555
 web: http://web.com
 linkedin: in/user.com
 email: email@email.com
 
-image_uri: images/profile.jpg
+image_uri: profile.jpg
 
 # Max value will be sidebar_width - 2*padding = 36 by default
 sidebar:
@@ -23,15 +28,19 @@ body:
       start: 01/2019
       end: Actual
       title: Developer
+      title_link: http://google.com
       company: Basetis
-      description: Description
+      company_link: https://www.basetis.com/
+      description: | # The | Allows to have markdown below
+        - Description line 1
+        - Description line 2
 
     -
       start: 09/2018
       end: 12/2018
       title: Backend
       company: Basetis
-      description: Description
+      description: Simple description
 
   Education:
     -
@@ -39,21 +48,21 @@ body:
       end: 09/2015
       title: Engineering
       company: UPC
-      description: Description
+      description: Simple description
 
     -
       start: 09/2010
       end: 09/2015
       title: Engineering
       company: UPC
-      description: Description
+      description:  Simple description
 
     -
       start: 09/2010
       end: 09/2015
       title: Engineering
       company: UPC
-      description: Description
+      description:  Simple description
 
     # You can comment sections you don't want to show
     # -
@@ -61,4 +70,4 @@ body:
     #   end: 09/1900
     #   title: Elementary school
     #   company: Funny name
-    #   description: Description
+    #   description:  Simple description

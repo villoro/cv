@@ -2,49 +2,77 @@
 
 {% block sidebar%}
 
-  <img class="profile" src="{{ url_for('static', filename=image_uri) }}">
+  {% if image_uri %}
+    <img class="profile" src="{{ url_for('static', filename=image_uri) }}">
+  {% endif %}
 
-  <h3>Contact</h3>
+  <h3>{{ contact_title }}</h3>
 
-  <div class="skill-container">
-    <img class="icon" src="{{ url_for('static', filename='icons/address.jpg') }}">
-    <div class="contact-container">
-      <p class="contact-text">{{ address }}</p>
+  {% if address %}
+    <div class="skill-container">
+      <img class="icon" src="{{ url_for('static', filename='icons/address.jpg') }}">
+      <div class="contact-container">
+        <div class="contact-text"> <!-- Allow multiline in address -->
+          {% for x in address %}
+            <p>{{ x }}</p>
+          {% endfor %}
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="spacer"></div>
+    <div class="spacer"></div>
+  {% endif %}
 
-  <div class="skill-container">
-    <img class="icon" src="{{ url_for('static', filename='icons/phone.jpg') }}">
-    <div class="contact-container">
-      <p class="contact-text">{{ phone }}</p>
+  {% if phone %}
+    <div class="skill-container">
+      <img class="icon" src="{{ url_for('static', filename='icons/phone.jpg') }}">
+      <div class="contact-container">
+        <p class="contact-text">{{ phone }}</p>
+      </div>
     </div>
-  </div>
-  <div class="spacer"></div>
+    <div class="spacer"></div>
+  {% endif %}
 
-  <div class="skill-container">
-    <img class="icon" src="{{ url_for('static', filename='icons/web.jpg') }}">
-    <div class="contact-container">
-      <p class="contact-text">{{ web }}</p>
+  {% if email %}
+    <div class="skill-container">
+      <img class="icon" src="{{ url_for('static', filename='icons/email.jpg') }}">
+      <div class="contact-container">
+        <p class="contact-text">
+          <a href="mailto:{{ email }}">
+            {{ email }}
+          </a>
+        </p>
+      </div>
     </div>
-  </div>
-  <div class="spacer"></div>
+    <div class="spacer"></div>
+  {% endif %}
 
-  <div class="skill-container">
-    <img class="icon" src="{{ url_for('static', filename='icons/linkedin.jpg') }}">
-    <div class="contact-container">
-      <p class="contact-text">{{ linkedin }}</p>
+  {% if web %}
+    <div class="skill-container">
+      <img class="icon" src="{{ url_for('static', filename='icons/web.jpg') }}">
+      <div class="contact-container">
+        <p class="contact-text">
+          <a href="{{ web }}">
+            {{ web }}
+          </a>
+        </p>
+      </div>
     </div>
-  </div>
-  <div class="spacer"></div>
+    <div class="spacer"></div>
+  {% endif %}
 
-  <div class="skill-container">
-    <img class="icon" src="{{ url_for('static', filename='icons/email.jpg') }}">
-    <div class="contact-container">
-      <p class="contact-text">{{ email }}</p>
+  {% if linkedin %}
+    <div class="skill-container">
+      <img class="icon" src="{{ url_for('static', filename='icons/linkedin.jpg') }}">
+      <div class="contact-container">
+        <p class="contact-text">
+          <a href="https://www.linkedin.com/{{ linkedin }}">
+            {{ linkedin }}
+          </a>
+        </p>
+      </div>
     </div>
-  </div>
-  <div class="spacer"></div>
+    <div class="spacer"></div>
+  {% endif %}
 
   {% for block_name, data in sidebar.items() %}
     <h3>{{ block_name }}</h3>
@@ -52,7 +80,9 @@
     <div class="skill-container">
 
       {% for name, value in data.items() %}
-        <p>{{ name }}</p>
+        <p style="margin-bottom: 0">
+          {{ name }}
+        </p>
         <div class="bar-container">
           <div class="bar-blue" style="width: {{ value }}mm"></div>
           <div class="bar-grey" style="width: {{ config['sidebar_width'] - 2*config['padding'] - value }}mm"></div>
@@ -69,21 +99,53 @@
 {% block body%}
   <h1>{{ full_name }}</h1>
 
-  {% for name, data in body.items() %}
+  {% for name, block_data in body.items() %}
     <h2> {{ name }}</h2>
 
-    {% for x in data %}
+    {% for data in block_data %}
       <div class="content">
+
+        <!-- Date Sidebar -->
         <div class="date-container">
-          <p class="date1">{{ x["end"] }}</p>
-          <p class="date2">{{ x["start"] }}</p>
+          <p class="date1">
+            {{ data["end"] }}
+          </p>
+
+          {% if data["start"] %}
+            <p class="date2">
+              {{ data["start"] }}
+            </p>
+          {% endif %} 
         </div>
+
+        <!-- Content itself -->
         <div class="description-container">
-          <h4>{{ x["title"] }}</h4>
-          <h5>{{ x["company"] }}</h5>
-          <div class="description">
-            <p>{{ x["description"] }}</p>
-          </div>
+
+          <!-- If there is description use h4, else regular text -->
+          {% if data["description"] %}<h4><b>{% else %}<p>{% endif %} 
+
+            <!-- Allows to add a link to the title -->
+            {% if data["title_link"] %}<a href="{{ data['title_link'] }}">{% endif %} 
+              {{ data["title"] }}
+            {% if data["title_link"] %}</a>{% endif %} 
+
+          {% if data["description"] %}</b></h4>{% else %}</p>{% endif %} 
+
+          <h5>
+            <!-- Allows to add a link to the company -->
+            {% if data["company_link"] %}<a href="{{ data['company_link'] }}">{% endif %} 
+              {{ data["company"] }}
+            {% if data["company_link"] %}</a>{% endif %}
+          </h5>
+
+          {% if data["description"] %}
+            <div class="description">
+              {% autoescape false %}
+                {{ data["description"] }}
+              {% endautoescape %}
+            </div>
+          {% endif %} 
+
         </div>
       </div>
     {% endfor %}

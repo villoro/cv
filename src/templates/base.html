@@ -16,16 +16,16 @@
         font-family: "Avenir 55";
         src: url("{{ url_for('static', filename='fonts/AvenirLTStd-Roman.otf') }}");
       }
-      @font-face {
+/*      @font-face {
         font-family: "Avenir 65";
         src: url("{{ url_for('static', filename='fonts/AvenirLTStd-Medium.otf') }}");
-      }
+      }*/
     </style>
 
     <!-- Documents styles -->
     <style>
       /* General style */
-      html, body, p {
+      html, body, p, ul, li {
         margin: 0;
         padding: 0;
         font-size: 9pt;
@@ -45,7 +45,7 @@
         font-size: 30pt;
         font-family: 'Avenir 35';
         padding-top: 11mm;
-        padding-bottom: 9mm;
+        padding-bottom: 10mm;
         padding-right: {{ config["padding"] }}mm;
         text-align: center;
         border-bottom: 3px solid {{ config["sidebar_color"] }};
@@ -55,6 +55,7 @@
         font-family: 'Avenir 55';
         width: {{ config["page_width"] - config["sidebar_width"] - config["h2_padding_left"]}}mm;
         padding-top: 5mm;
+        padding-bottom: 1mm;
         padding-left: {{ config["h2_padding_left"] }}mm;
       }
       h3 {
@@ -64,7 +65,7 @@
       }
       h4 {
         font-size: 10pt;
-        font-family: 'Avenir 65';
+        font-family: 'Avenir 45';
       }
       h5 {
         font-size: 10pt;
@@ -74,6 +75,21 @@
         right:0px;
         top:0px;
         text-align: right;
+      }
+      a {
+          color: inherit; /* blue colors for links too */
+          text-decoration: inherit; /* no underline */
+      }
+
+      /* List styles */
+      ul {
+        list-style-type: none;
+      }
+      p, li {
+        margin-bottom: 1.2mm; /* This gives some space between lines in general */
+      }
+      li:before {
+        content: "- ";
       }
 
       /* Layout styles */
@@ -112,7 +128,7 @@
         padding-top: 3mm;
       }
       .skill-spacer {
-        padding-top: 2mm;
+        padding-top: 3mm;
         clear: both;
       }
       .contact-container {
@@ -128,7 +144,7 @@
       .content {
         float: left;
         width: {{ config["page_width"] - config["sidebar_width"] }}mm;
-        padding-top: 4mm;
+        padding-top: 3mm;
       }
       .spacer {
         clear: both;
@@ -188,6 +204,7 @@
       .profile {
         width: {{ config["sidebar_width"] - 2*config["padding"] }}mm;
         height: {{ config["sidebar_width"] - 2*config["padding"] }}mm;
+        padding-bottom: {{ config["profile_image_padding_bottom"] }}mm;
       }
     </style>
   </head>

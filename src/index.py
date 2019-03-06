@@ -28,14 +28,14 @@ def preview_sample():
 def print(name):
     """ Display a CV without any frame for printing """
 
-    return render_template(c.FILE_DEFAULT_TEMPLATE, **get_content(name=name))
+    return render_template(c.FILE_DEFAULT_TEMPLATE, **get_content(name))
 
 
-@APP.route("/<name>")
+@APP.route("/v/<name>")
 def preview(name):
     """ Render a CV for previews """
 
-    return render_template(c.FILE_DEFAULT_TEMPLATE, preview=True, **get_content(name=name))
+    return render_template(c.FILE_DEFAULT_TEMPLATE, preview=True, **get_content(name))
 
 
 if __name__ == "__main__":
