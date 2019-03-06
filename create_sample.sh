@@ -7,7 +7,5 @@
  -R 0 \
  --disable-smart-shrinking \
  --print-media-type \
- --enable-external-links \
- --keep-relative-links \
  localhost:5000/print.html \
  assets/sample.pdf
