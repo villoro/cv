@@ -1,0 +1,101 @@
+full_name: John Doe
+
+# Address should be a list (with only one element if needed)
+address: 
+  - City
+
+phone: 555 555 5555
+web: http://web.com # It will automatically add an hiperlink
+linkedin: in/user.com # It will automatically add an hiperlink
+email: email@email.com # It will automatically add an hiperlink
+
+image_uri: images/default_profile_2.png
+
+contact_title: Contact # To allow multilanguage
+
+description: |
+  This is where you can write your pitch. It is written using **Markdown**. You can include bold, italics, links...
+  
+  Take a look at the [cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
+  
+  If you don't want this section you can just comment it. The same applies for the profile picture.
+
+
+
+# Max value will be sidebar_width - 2*padding = 36 by default
+sidebar:
+  Skills:
+    Python: 36
+    Java: 25
+
+  Languages:
+    English: 30
+    Spanish: 25
+
+body:
+  Experience:
+    -
+      start: 01/2019
+      end: Actual
+      title: Developer
+      title_link: http://google.com
+      company: Basetis
+      company_link: https://www.basetis.com/
+      description: | # The | Allows to have markdown below
+        - Description line 1
+        - Description line 2
+        - Description line 3
+    -
+      start: 09/2018
+      end: 12/2018
+      title: Backend
+      company: Basetis
+      description: |
+        Description are written using **Markdown**. You can include bold, italics, links...
+
+        Take a look at the [cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
+
+  Education:
+    -
+      start: 09/2010
+      end: 09/2015
+      title: Engineering
+      company: UPC
+      description: Simple description
+
+    -
+      start: 09/2010
+      end: 09/2015
+      title: Engineering
+      company: UPC
+      description:  Simple description
+
+    -
+      start: 09/2010
+      end: 09/2015
+      title: Engineering
+      company: UPC
+      description:  Simple description
+
+    # You can comment sections you don't want to show
+    # -
+    #   start: 09/1901
+    #   end: 09/1900
+    #   title: Elementary school
+    #   company: Funny name
+    #   description:  Simple description
+
+  # You can have more simpler blocks without descritpion
+  # Good option for certificates or courses
+  Certifications:
+    -
+      end: 09/2017
+      title: Certification 1
+      title_link: https://google.com/
+      company: Company
+      company_link: https://google.com/
+
+    -
+      end: 09/2017
+      title: Certification 2
+      company: Company
