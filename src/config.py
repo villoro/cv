@@ -10,7 +10,7 @@ PATH_WKHTML = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
 
 # Files
 FILE_DEFAULT_TEMPLATE = "cv.html"
-FILE_DEFAULT = "sample_data"
+FILE_DEFAULT = "sample_1"
 FILE_CONFIG = f"{PATH_CONTENT}config.yaml"
 
 # URL

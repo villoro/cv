@@ -10,7 +10,8 @@ web: http://web.com # It will automatically add an hiperlink
 linkedin: in/user.com # It will automatically add an hiperlink
 email: email@email.com # It will automatically add an hiperlink
 
-image_uri: profile.jpg
+image_uri: images/default_profile_1.jpg
+image_link: https://google.com
 
 contact_title: Contact # To allow multilanguage
 
