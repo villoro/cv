@@ -2,8 +2,11 @@
 
 {% block sidebar%}
 
+  <!-- Profile picture -->
   {% if image_uri %}
-    <img class="profile" src="{{ url_for('static', filename=image_uri) }}">
+    {% if image_link %}<a href="{{ image_link }}" style="display: block;">{% endif %}
+      <img class="profile" src="{{ url_for('static', filename=image_uri) }}">
+    {% if image_link %}</a>{% endif %}
   {% endif %}
 
   <h3>{{ contact_title }}</h3>
@@ -37,7 +40,7 @@
       <img class="icon" src="{{ url_for('static', filename='icons/email.jpg') }}">
       <div class="contact-container">
         <p class="contact-text">
-          <a href="mailto:{{ email }}">
+          <a href="mailto:{{ email }}" style="display: block;">
             {{ email }}
           </a>
         </p>
