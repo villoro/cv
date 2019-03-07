@@ -56,9 +56,12 @@ dist/
 */*/temp.md
 */temp.ipynb
 
-# Hide input and output
+# Hide input (except sample) and output
 input/*.yaml
+!input/sample_*.yaml
+
 output/*.pdf
 
-# Hide images
+# Hide images (except default)
 src/static/images/*
+!src/static/images/default_*

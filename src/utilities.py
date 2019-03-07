@@ -32,15 +32,11 @@ def get_content(name=None):
 
     if name is None:
         name = c.FILE_DEFAULT
-        path = c.PATH_CONTENT
 
-    else:
-        # No extension if present
-        name = name.split(".")[0]
-        path = c.PATH_INPUT
+    name = name.split(".")[0]
 
     # Read data
-    out = _read_yaml(f"{path}{name}.yaml")
+    out = _read_yaml(f"{c.PATH_INPUT}{name}.yaml")
     _transform_from_markdown(out)
 
     # Add config data
