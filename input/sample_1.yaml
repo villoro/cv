@@ -13,7 +13,13 @@ email: email@email.com # It will automatically add an hiperlink
 image_uri: images/default_profile_1.jpg
 image_link: https://google.com
 
-contact_title: Contact # To allow multilanguage
+# To allow multilanguage
+titles:
+  contact: Contact
+  language: Languages
+  expertise: Expertise
+  programming: Programming
+  keyskills: Key Skills
 
 description: |
   This is where you can write your pitch. It is written using **Markdown**. You can include bold, italics, links...
@@ -23,16 +29,24 @@ description: |
   If you don't want this section you can just comment it. The same applies for the profile picture.
 
 
+expertise:
+  - Data Engineering
+  - Cloud Platforms
+  - Artificial Intelligence
 
 # Max value will be sidebar_width - 2*padding = 36 by default
-sidebar:
-  Skills:
-    Python: 36
-    Java: 25
+languages:
+  English: 30
+  Spanish: 25
 
-  Languages:
-    English: 30
-    Spanish: 25
+keyskills:
+  - Spark / Dask
+  - SQL
+  - Luigi / Airflow
+  - AWS / Azure
+  - Python
+  - Pandas
+  - Tensorflow / Keras
 
 body:
   Experience:
