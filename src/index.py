@@ -13,10 +13,11 @@ APP = Flask(__name__)
 @APP.route("/v/<name>")
 def show(name=None, preview=True):
     """ Render a CV for previews """
-    return render_template(c.FILE_DEFAULT_TEMPLATE, **get_content())
 
+    data = get_content(name)
+    template = data["template"] + ".html"
 
-@APP.route("/")
+    return render_template(template, preview=preview, **data)
 
 
 @APP.route("/print/<name>")
