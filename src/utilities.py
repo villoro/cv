@@ -21,10 +21,11 @@ def _transform_from_markdown(data):
         data["description"] = markdown(data["description"])
 
     # Descriptions in body
-    for block_name, block_data in data["body"].items():
-        for x in block_data:
-            if "description" in x:
-                x["description"] = markdown(x["description"])
+    if "body" in data:
+        for block_name, block_data in data["body"].items():
+            for x in block_data:
+                if "description" in x:
+                    x["description"] = markdown(x["description"])
 
 
 def get_content(name=None):
