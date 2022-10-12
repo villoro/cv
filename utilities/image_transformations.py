@@ -1,22 +1,6 @@
-import os
-
 from rembg import remove
 from PIL import Image, ImageOps, ImageDraw
 from v_palette import get_colors
-
-
-def get_folder_out_and_name(path_in):
-    """Gets the path where data should be stored and the base name"""
-
-    folder_in = "/".join(path_in.split("/")[:-1])
-    folder_out = f"{folder_in}/transformed"
-
-    if not os.path.exists(folder_out):
-        os.makedirs(folder_out)
-
-    name = path_in.split("/")[-1].split(".")[0]
-
-    return folder_out, name
 
 
 def get_image(path_in):
@@ -31,7 +15,7 @@ def remove_bg(image_in, alpha_matting=True, alpha_matting_erode_size=40):
     )
 
 
-def add_background(image_in, background_color, mask=None):
+def add_background_color(image_in, background_color, mask=None):
     """Fill background with solid color"""
 
     if mask is None:
@@ -49,7 +33,9 @@ def add_background(image_in, background_color, mask=None):
 def to_grayscale(image_in, background_color=None):
     """Turn image to grayscale"""
 
-    return add_background(image_in.convert("L"), background_color=background_color, mask=image_in)
+    return add_background_color(
+        image_in.convert("L"), background_color=background_color, mask=image_in
+    )
 
 
 def round_image(image_in):
