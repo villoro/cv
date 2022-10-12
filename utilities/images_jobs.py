@@ -59,7 +59,6 @@ class ImageJobConfig(BaseModel):
     @root_validator
     def round_only_if_background(cls, values):
 
-        print(values)
         if not values.get("round"):
             return values
 
@@ -96,6 +95,10 @@ class Job:
             out += "_no_bg"
             format_out = ".png"
 
+        if self.job_config.round:
+            out += "_round"
+            format_out = ".png"
+
         if self.job_config.grayscale:
             out += "_grayscale"
 
@@ -122,7 +125,7 @@ class Job:
     def export(self):
         """Export result"""
 
-        if self.out_name.endswith(".jpg"):
+        if self.out_name().endswith(".jpg"):
             self.image_out = self.image_out.convert("RGB")
 
         self.image_out.save(self.out_name())
