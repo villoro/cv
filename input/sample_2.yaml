@@ -1,3 +1,5 @@
+template: cv_no_bars
+
 full_name: John Doe
 
 # Address should be a list (with only one element if needed)

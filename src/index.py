@@ -10,32 +10,32 @@ from utilities import get_content
 APP = Flask(__name__)
 
 
-@APP.route("/print.html")
-def print_sample():
-    """ Display the sample CV without any frame for printing """
+@APP.route("/v/<name>")
+def show(name=None, preview=True):
+    """ Render a CV for previews """
 
-    return render_template(c.FILE_DEFAULT_TEMPLATE, **get_content())
+    data = get_content(name)
+    template = data["template"] + ".html"
 
-
-@APP.route("/")
-def preview_sample():
-    """ Render the sample CV for previews """
-
-    return render_template(c.FILE_DEFAULT_TEMPLATE, preview=True, **get_content())
+    return render_template(template, preview=preview, **data)
 
 
 @APP.route("/print/<name>")
-def print(name):
+def mprint(name=None):
     """ Display a CV without any frame for printing """
+    return show(name, preview=False)
 
-    return render_template(c.FILE_DEFAULT_TEMPLATE, **get_content(name))
+
+@APP.route("/print.html")
+def print_sample():
+    """ Display the sample CV without any frame for printing """
+    return mprint()
 
 
-@APP.route("/v/<name>")
-def preview(name):
-    """ Render a CV for previews """
-
-    return render_template(c.FILE_DEFAULT_TEMPLATE, preview=True, **get_content(name))
+@APP.route("/")
+def show_sample():
+    """ Render the sample CV for previews """
+    return show(None)
 
 
 if __name__ == "__main__":
