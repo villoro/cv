@@ -1,7 +1,7 @@
 import os
 
 from rembg import remove
-from PIL import Image
+from PIL import Image, ImageOps, ImageDraw
 from v_palette import get_colors
 
 
@@ -50,3 +50,16 @@ def to_grayscale(image_in, background_color=None):
     """Turn image to grayscale"""
 
     return add_background(image_in.convert("L"), background_color=background_color, mask=image_in)
+
+
+def round_image(image_in):
+    """Rounds an image that must be squared"""
+    mask = Image.new("L", image_in.size, 0)
+
+    draw = ImageDraw.Draw(mask)
+    draw.ellipse((0, 0) + image_in.size, fill=255)
+
+    image_out = ImageOps.fit(image_in, mask.size, centering=(0.5, 0.5))
+    image_out.putalpha(mask)
+
+    return image_out

@@ -65,3 +65,6 @@ output/*.pdf
 # Hide images (except default)
 src/static/images/*
 !src/static/images/default_*
+
+# Notebooks for images
+utilities/**.ipynb
