@@ -15,13 +15,15 @@ from v_palette import get_colors
 def get_folder_out_and_name(path_in):
     """Gets the path where data should be stored and the base name"""
 
-    folder_in = "/".join(path_in.split("/")[:-1])
-    folder_out = f"{folder_in}/transformed"
+    aux = path_in.split("/")
+
+    name = aux[-1].split(".")[0]
+    folder_in = "/".join(aux[:-1])
+
+    folder_out = f"{folder_in}/{name}"
 
     if not os.path.exists(folder_out):
         os.makedirs(folder_out)
-
-    name = path_in.split("/")[-1].split(".")[0]
 
     return folder_out, name
 
@@ -72,14 +74,17 @@ class ImageJobConfig(BaseModel):
 class Job:
     """Use for doing multiple transformations"""
 
-    def __init__(self, path_in, job_config):
+    def __init__(self, path_in, job_config, reprocess=True):
 
         self.job_config = job_config
 
         self.folder_out, self.base_name = get_folder_out_and_name(path_in)
         self.image_in = get_image(path_in)
 
-    def out_name(self):
+        self.reprocess = reprocess
+
+    @property
+    def path_out(self):
         """Infer out name based on the config"""
         out = f"{self.folder_out}/{self.base_name}"
 
@@ -106,6 +111,11 @@ class Job:
 
     def transform(self):
         """Aply all asked transformations"""
+
+        if not self.reprocess and os.path.exists(self.path_out):
+            self.image_out = get_image(self.path_out)
+            return False
+
         image = self.image_in
 
         if not self.job_config.background:
@@ -121,14 +131,15 @@ class Job:
             image = round_image(image)
 
         self.image_out = image
+        return True
 
     def export(self):
         """Export result"""
 
-        if self.out_name().endswith(".jpg"):
+        if self.path_out.endswith(".jpg"):
             self.image_out = self.image_out.convert("RGB")
 
-        self.image_out.save(self.out_name())
+        self.image_out.save(self.path_out)
 
     def process(self):
         """Transform and export"""
