@@ -2,6 +2,10 @@ path_in: C:/Users/Villoro/Dropbox/Docs/Carnets/DSC_0136_center.jpg
 reprocess: False
 
 configs:
+
+  - 
+    color: WHITE
+
   - 
     color_name: blue
     color_index: 100
@@ -11,7 +15,7 @@ configs:
     color_index: 100
 
   - 
-    color_name: orange
+    color_name: deep purple
     color_index: 100
 
   - 
@@ -19,11 +23,11 @@ configs:
     color_index: 100
 
   - 
-    color_name: red
+    color_name: orange
     color_index: 100
 
   - 
-    color_name: deep purple
+    color_name: red
     color_index: 100
 
   - 

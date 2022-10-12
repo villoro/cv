@@ -109,10 +109,14 @@ class Job:
 
         return out + format_out
 
+    @property
+    def needs_reprocessing(self):
+        return self.reprocess or not os.path.exists(self.path_out)
+
     def transform(self):
         """Aply all asked transformations"""
 
-        if not self.reprocess and os.path.exists(self.path_out):
+        if not self.needs_reprocessing:
             self.image_out = get_image(self.path_out)
             return False
 
@@ -122,7 +126,7 @@ class Job:
             image = remove_bg(image)
 
         if self.job_config.grayscale:
-            image = to_grayscale(image_in, background_color=self.job_config.color)
+            image = to_grayscale(image, background_color=self.job_config.color)
 
         elif self.job_config.color:
             image = add_background_color(image, self.job_config.color)
@@ -139,7 +143,8 @@ class Job:
         if self.path_out.endswith(".jpg"):
             self.image_out = self.image_out.convert("RGB")
 
-        self.image_out.save(self.path_out)
+        if self.needs_reprocessing:
+            self.image_out.save(self.path_out)
 
     def process(self):
         """Transform and export"""
