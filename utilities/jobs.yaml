@@ -34,15 +34,5 @@ configs:
     color_name: yellow
     color_index: 100
 
-  - # Glovo
-    color: "#ffc845"
-
-
-  - # Glovo
-    color: "#ffc845"
-    grayscale: True
-
-  - # Glovo
-    color: "#ffc845"
-    grayscale: True
-    round: True
+  - # Whatsapp
+    color: "#128C7E"
