@@ -1,9 +1,0 @@
-Flask>=1.0.2
-Markdown>=3.0.1
-oyaml==0.7
-Pillow>=9.2.0
-pydantic>=1.9.0
-PyYAML>=6.0
-rembg>=2.0.25
-tqdm>=4.64.0
-v_palette>=1.1.0

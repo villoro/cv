@@ -1,2 +1,28 @@
 [tool.black]
 line-length = 100
+
+[tool.poetry]
+name = "cv"
+version = "2.0.0"
+description = "Programatically create CVs"
+authors = ["Arnau Villoro <arnau@villoro.com>"]
+maintainers = ["Arnau Villoro <arnau@villoro.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/villoro/cv"
+
+[tool.poetry.dependencies]
+python = "3.11.0"
+flask = "^2.2.3"
+markdown = "^3.4.1"
+oyaml = "^1.0"
+
+[tool.poetry.group.utils.dependencies]
+pillow = "^9.4.0"
+pydantic = "^1.10.6"
+tqdm = "^4.65.0"
+v-palette = "^1.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

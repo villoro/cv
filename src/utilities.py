@@ -7,14 +7,14 @@ import config as c
 
 
 def _read_yaml(uri):
-    """ auxiliar function to raad a yaml """
+    """auxiliar function to raad a yaml"""
 
     with open(uri, encoding="utf-8") as file:
-        return yaml.load(file)
+        return yaml.safe_load(file)
 
 
 def _transform_from_markdown(data):
-    """ Transform markdown text to html """
+    """Transform markdown text to html"""
 
     # Main description of CV
     if "description" in data:
@@ -29,7 +29,7 @@ def _transform_from_markdown(data):
 
 
 def get_content(name=None):
-    """ Return content of the CV """
+    """Return content of the CV"""
 
     if name is None:
         name = c.FILE_DEFAULT
