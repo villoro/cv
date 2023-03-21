@@ -46,7 +46,7 @@ With `create_sample.sh` you can create the `assets/sample.pdf`
 To create the pdf for all `yaml` files inside the `input/` folder run from the main path:
 
 ```
-poetry src/do_all.py
+poetry run python src/do_all.py
 ```
 
 > You should change the `wkhtmltopdf` path inside `config.py` and/or `create_sample.sh`.
