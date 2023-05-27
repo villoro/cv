@@ -11,6 +11,7 @@ APP = Flask(__name__)
 
 
 @APP.route("/v/<name>")
+@APP.route("/view/<name>")
 def show(name=None, preview=True):
     """Render a CV for previews"""
 
