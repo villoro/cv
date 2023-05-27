@@ -41,8 +41,6 @@ You can also view any file (like `cv1.yml`) from the `input` folder with the url
 
 ### 4. Create the pdf
 
-With `create_sample.sh` you can create the `assets/sample.pdf`
-
 To create the pdf for all `yaml` files inside the `input/` folder run from the main path:
 
 ```
@@ -50,6 +48,8 @@ poetry run python src/do_all.py
 ```
 
 > You should change the `wkhtmltopdf` path inside `config.py` and/or `create_sample.sh`.
+
+> Also you need to have `flask` running
 
 ## Configuration
 There are two files to `input/sample_1.yaml` and `src/config.yaml`.

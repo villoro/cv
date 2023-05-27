@@ -116,3 +116,37 @@ body:
       end: 09/2017
       title: Certification 2
       company: Company
+
+
+config:
+  # Document colors
+  theme_color: "#0395DE" # Cool blue
+  sidebar_color: "#F6F6F6" # Light grey
+  bar_background_color: "#DFDFDF" # Darker light grey
+  date2_color: "#616161" # Grey
+
+  # Sizes
+  padding: 12
+  page_width: 210
+  page_height: 297
+
+  sidebar_width: 60
+  profile_image_padding_bottom: 6
+
+  pitch_padding_top: 4
+  pitch_padding_bottom: 4
+  pitch_padding_left: 4
+
+  h2_padding_left: 4
+  date_container_width: 13
+  date_container_padding_left: 8
+  description_container_padding_left: 3
+
+  # Frame for previewing
+  frame_padding: 10
+  frame_color: "#757575" # Grey 600
+
+  # Cover letter paddings
+  cover_padding_top: 10
+  cover_padding_bottom: 20
+  cover_padding_h: 25

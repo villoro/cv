@@ -40,8 +40,4 @@ def get_content(name=None):
     out = _read_yaml(f"{c.PATH_INPUT}{name}.yaml")
     _transform_from_markdown(out)
 
-    # Add config data
-    if "config" not in out:
-        out["config"] = _read_yaml(c.FILE_CONFIG)
-
     return out
