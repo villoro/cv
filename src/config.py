@@ -7,7 +7,7 @@ If you want to use the sample, uncomment the PATH_DATA = "sample"
 
 # Paths
 PATH_DATA = "cv_private"
-PATH_DATA = "sample"  # Uncomment if you want to use the sample folder
+# PATH_DATA = "sample"  # Uncomment if you want to use the sample folder
 PATH_INPUT = f"{PATH_DATA}/input/"
 PATH_OUTPUT = f"{PATH_DATA}/output/"
 PATH_CONTENT = "src/"
