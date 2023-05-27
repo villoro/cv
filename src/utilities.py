@@ -41,6 +41,7 @@ def get_content(name=None):
     _transform_from_markdown(out)
 
     # Add config data
-    out["config"] = _read_yaml(c.FILE_CONFIG)
+    if "config" not in out:
+        out["config"] = _read_yaml(c.FILE_CONFIG)
 
     return out
