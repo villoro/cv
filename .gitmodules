@@ -1,0 +1,3 @@
+[submodule "cv_private"]
+	path = cv_private
+	url = git@github.com:villoro/cv_private.git
