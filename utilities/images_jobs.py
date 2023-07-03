@@ -52,7 +52,7 @@ class AddColorGeneric(BaseModel):
         color_index = values.get("color_index")
 
         if (color_name is None) and (color_index is None):
-            return v
+            return v.lower()
 
         elif color_name is None:
             raise ValueError("'color_name' can't be null when 'color_index' is not null")
@@ -157,21 +157,31 @@ class Job(BaseModel):
         return True
 
 
-class Jobs(BaseModel):
+class JobsImage(BaseModel):
     path_in: str
     folder_out: str
     jobs: list[Job]
 
-    def do_all(self, tqdm_class=tqdm):
-        name = self.path_in.split("/")[-1].rsplit(".", maxsplit=1)[0]
+    @property
+    def name(self):
+        return self.path_in.split("/")[-1].rsplit(".", maxsplit=1)[0]
 
-        for job in tqdm_class(self.jobs):
-            job.process(path_in=self.path_in, folder_out=self.folder_out, name=name)
+    def do_all(self, tqdm_class=tqdm):
+        for job in tqdm_class(self.jobs, desc=self.name):
+            job.process(path_in=self.path_in, folder_out=self.folder_out, name=self.name)
+
+
+class AllJobs(BaseModel):
+    jobs_image: list[JobsImage]
+
+    def do_all(self, tqdm_class=tqdm):
+        for job_image in tqdm_class(self.jobs_image, desc="do all"):
+            job_image.do_all(tqdm_class=tqdm)
 
 
 if __name__ == "__main__":
     with open(YAML_FILE) as f:
         data = yaml.safe_load(f)
 
-    jobs = Jobs(**data)
+    jobs = AllJobs(jobs_image=data)
     jobs.do_all()
