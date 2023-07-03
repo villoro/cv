@@ -9,7 +9,7 @@ from image_transformations import (
     add_background_color,
     round_image,
 )
-from v_palette import get_colors
+from vpalette import get_colors
 
 
 def get_folder_out_and_name(path_in):

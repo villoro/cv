@@ -1,6 +1,8 @@
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageOps
 from rembg import remove
-from PIL import Image, ImageOps, ImageDraw
-from v_palette import get_colors
+from vpalette import get_colors
 
 
 def get_image(path_in):
@@ -8,7 +10,7 @@ def get_image(path_in):
     return Image.open(path_in)
 
 
-def remove_bg(image_in, alpha_matting=True, alpha_matting_erode_size=40):
+def remove_bg(image_in, alpha_matting=False, alpha_matting_erode_size=40):
     """Remove image background"""
     return remove(
         image_in, alpha_matting=alpha_matting, alpha_matting_erode_size=alpha_matting_erode_size
