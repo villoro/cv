@@ -17,12 +17,13 @@ def get_jobs_from_yaml():
 def do_all(data=None, tqdm_class=tqdm):
 
     if data is None:
-        data = get_jobs_from_yaml()
+        data_all = get_jobs_from_yaml()
 
-    for x in tqdm_class(data.get("configs")):
-        config = ImageJobConfig(**x)
+    for data in tqdm_class(data_all):
+        for x in tqdm_class(data.get("configs")):
+            config = ImageJobConfig(**x)
 
-        Job(data.get("path_in"), config, data.get("reprocess")).process()
+            Job(data.get("path_in"), config, data.get("reprocess")).process()
 
 
 if __name__ == "__main__":

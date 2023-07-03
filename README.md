@@ -16,6 +16,13 @@ You can view the full pdf [here](assets/sample.pdf).
 
 ## Usage
 
+### 0. Install with poetry
+
+```
+pip install poetry
+poetry install
+```
+
 ### 1. Create your CVs
 
 Copy `input/sample_1.yaml` and rename it to whatever you like. For example `input/cv1.yaml`.
@@ -23,7 +30,9 @@ Copy `input/sample_1.yaml` and rename it to whatever you like. For example `inpu
 ### 2. Start Flask
 Start the `flask` server from the root folder with:
 
-	python src/index.py
+```
+poetry run python src/index.py
+```
 
 ### 3. Preview the result
 Open `http://localhost:5000/` to preview the result
@@ -32,13 +41,15 @@ You can also view any file (like `cv1.yml`) from the `input` folder with the url
 
 ### 4. Create the pdf
 
-With `create_sample.sh` you can create the `assets/sample.pdf`
-
 To create the pdf for all `yaml` files inside the `input/` folder run from the main path:
 
-	python src/do_all.py
+```
+poetry run python src/do_all.py
+```
 
 > You should change the `wkhtmltopdf` path inside `config.py` and/or `create_sample.sh`.
+
+> Also you need to have `flask` running
 
 ## Configuration
 There are two files to `input/sample_1.yaml` and `src/config.yaml`.
@@ -53,18 +64,3 @@ If you want further configuration you can edit the templates (`src/templates/bas
 
 ## License
 The content of this repository is licensed under a [MIT](https://opensource.org/licenses/MIT).
-
-## Nomenclature
-Branches and commits use some prefixes to keep everything better organized.
-
-### Branches
-* **f/:** features
-* **r/:** releases
-* **h/:** hotfixs
-
-### Commits
-* **[NEW]** new features
-* **[FIX]** fixes
-* **[REF]** refactors
-* **[PYL]** [pylint](https://www.pylint.org/) improvements
-* **[TST]** tests
