@@ -1,6 +1,8 @@
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageOps
 from rembg import remove
-from PIL import Image, ImageOps, ImageDraw
-from v_palette import get_colors
+from vpalette import get_colors
 
 
 def get_image(path_in):

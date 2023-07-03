@@ -21,7 +21,7 @@ oyaml = "^1.0"
 pillow = "^9.4.0"
 pydantic = "^1.10.6"
 tqdm = "^4.65.0"
-v-palette = "^1.1.0"
+vpalette = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core"]
