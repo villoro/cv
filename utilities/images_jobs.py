@@ -1,8 +1,9 @@
 import os
+import yaml
 
 from pydantic import BaseModel, validator, root_validator
-from typing import Literal, Union
 from tqdm import tqdm
+from typing import Literal, Union
 from vpalette import get_colors
 
 from image_transformations import (
@@ -12,6 +13,8 @@ from image_transformations import (
     add_background_color,
     round_image,
 )
+
+YAML_FILE = "jobs.yaml"
 
 
 class RoundImage(BaseModel):
@@ -109,13 +112,8 @@ class ToGrayscale(AddColorGeneric):
 
 
 class Job(BaseModel):
-    path_in: str
-    folder_out: str
-
     transformations: list[Union[RoundImage, RemoveBg, AddBackgroundColor, ToGrayscale]]
-    name_out: str = None
     extension: str = None
-    path_out: str = None
     reprocess: bool = False
 
     @validator("extension", pre=True, always=True)
@@ -127,15 +125,12 @@ class Job(BaseModel):
             return "png"
         return "jpg"
 
-    @validator("name_out", pre=True, always=True)
-    def populate_name_out(cls, v, values):
-        transformations = values.get("transformations")
-        path_in = values.get("path_in")
-
-        out = path_in.split("/")[-1].rsplit(".", maxsplit=1)[0]
-        for x in transformations:
+    @property
+    def suffixes(self):
+        out = ""
+        for x in self.transformations:
             if x.action == "remove_bg":
-                if len(transformations) == 0:
+                if len(self.transformations) == 0:
                     return x.suffix
 
             else:
@@ -143,23 +138,14 @@ class Job(BaseModel):
 
         return out
 
-    @validator("path_out", pre=True, always=True)
-    def populate_path_out(cls, v, values):
-        folder_out = values.get("folder_out").rstrip("/")
-        name_out = values.get("name_out")
-        extension = values.get("extension")
+    def process(self, path_in, folder_out, name):
+        folder_out = folder_out.rstrip("/")
+        path_out = f"{folder_out}/{name}{self.suffixes}.{self.extension}"
 
-        return f"{folder_out}/{name_out}.{extension}"
+        if not (self.reprocess or not os.path.exists(path_out)):
+            return False
 
-    @property
-    def needs_reprocessing(self):
-        return self.reprocess or not os.path.exists(self.path_out)
-
-    def process(self):
-        if not self.needs_reprocessing:
-            return get_image(self.path_out)
-
-        image = get_image(self.path_in)
+        image = get_image(path_in)
 
         for transformation in self.transformations:
             image = transformation.run(image)
@@ -167,6 +153,25 @@ class Job(BaseModel):
         if self.extension in ("jpg", "jpeg"):
             image = image.convert("RGB")
 
-        if self.reprocess:
-            image.save(self.path_out)
-        return image
+        image.save(path_out)
+        return True
+
+
+class Jobs(BaseModel):
+    path_in: str
+    folder_out: str
+    jobs: list[Job]
+
+    def do_all(self, tqdm_class=tqdm):
+        name = self.path_in.split("/")[-1].rsplit(".", maxsplit=1)[0]
+
+        for job in tqdm_class(self.jobs):
+            job.process(path_in=self.path_in, folder_out=self.folder_out, name=name)
+
+
+if __name__ == "__main__":
+    with open(YAML_FILE) as f:
+        data = yaml.safe_load(f)
+
+    jobs = Jobs(**data)
+    jobs.do_all()
