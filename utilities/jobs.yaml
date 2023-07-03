@@ -1,5 +1,5 @@
 - path_in: C:/Users/Villoro/Dropbox/Docs/Carnets/DSC_0136_center.jpg
-  folder_out: C:/Users/Villoro/Downloads/
+  folder_out: C:/Users/Villoro/Dropbox/Docs/Carnets/DSC_0136_center
   jobs:
     - transformations:
       - action: remove_bg

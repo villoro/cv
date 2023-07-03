@@ -63,22 +63,21 @@ class AddColorGeneric(BaseModel):
         values["color"] = get_colors((color_name, color_index))
         return values
 
+    @property
+    def suffix(self):
+        prefix = "_grayscale" if self.action == "to_grayscale" else ""
+
+        if self.color_name and self.color_index:
+            return f"{prefix}__{self.color_name}_{self.color_index}"
+
+        elif self.color:
+            return f"{prefix}__{self.color}"
+
+        return prefix
+
 
 class AddBackgroundColor(AddColorGeneric):
     action: Literal["add_background_color"]
-    suffix: str = None
-
-    @validator("suffix", pre=True, always=True)
-    def populate_suffix(cls, v, values):
-        """Infer color form color_name and color_index"""
-
-        if (color_name := values.get("color_name")) and (color_index := values.get("color_index")):
-            return f"__{color_name}_{color_index}"
-
-        elif color := values.get("color"):
-            return f"__{color}"
-
-        raise ValueError("Invalid color configuration")
 
     def run(self, image_in):
         return add_background_color(image_in, background_color=self.color)
@@ -86,19 +85,6 @@ class AddBackgroundColor(AddColorGeneric):
 
 class ToGrayscale(AddColorGeneric):
     action: Literal["to_grayscale"]
-    suffix: str = None
-
-    @validator("suffix", pre=True, always=True)
-    def populate_suffix(cls, v, values):
-        """Infer color form color_name and color_index"""
-
-        if (color_name := values.get("color_name")) and (color_index := values.get("color_index")):
-            return f"_grayscale__{color_name}_{color_index}"
-
-        elif color := values.get("color"):
-            return f"_grayscale__{color}"
-
-        return "_grayscale"
 
     def run(self, image_in):
         return to_grayscale(image_in, background_color=self.color)
