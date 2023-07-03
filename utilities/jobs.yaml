@@ -7,19 +7,11 @@
   reprocess: False
   configs:
     - color: WHITE
-    - color_name: blue
-      color_index: 100
-    - color_name: cyan
-      color_index: 100
-    - color_name: deep purple
-      color_index: 100
     - color_name: light green
-      color_index: 100
-    - color_name: orange
-      color_index: 100
-    - color_name: red
-      color_index: 100
-    - color_name: yellow
-      color_index: 100
+      color_index: 300
+      round: True
+    - color_name: light green
+      color_index: 300
+      round: True
     # Whatsapp
     - color: "#128C7E"
