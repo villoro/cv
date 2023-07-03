@@ -1,4 +1,5 @@
 import os
+import pathlib
 import yaml
 
 from pydantic import BaseModel, validator, root_validator
@@ -14,7 +15,7 @@ from image_transformations import (
     round_image,
 )
 
-YAML_FILE = "jobs.yaml"
+PATH_JOBS = pathlib.Path(__file__).parent.parent / "cv_private" / "utils_jobs"
 
 
 class RoundImage(BaseModel):
@@ -109,7 +110,7 @@ class Job(BaseModel):
         out = ""
         for x in self.transformations:
             if x.action == "remove_bg":
-                if len(self.transformations) == 0:
+                if len(self.transformations) == 1:
                     return x.suffix
 
             else:
@@ -136,7 +137,7 @@ class Job(BaseModel):
         return True
 
 
-class JobsImage(BaseModel):
+class Jobs(BaseModel):
     path_in: str
     folder_out: str
     jobs: list[Job]
@@ -150,17 +151,17 @@ class JobsImage(BaseModel):
             job.process(path_in=self.path_in, folder_out=self.folder_out, name=self.name)
 
 
-class AllJobs(BaseModel):
-    jobs_image: list[JobsImage]
+def do_all(tqdm_class=tqdm):
+    for filename in tqdm_class(os.listdir(PATH_JOBS), desc="do all"):
+        if not filename.endswith(".yaml"):
+            continue
 
-    def do_all(self, tqdm_class=tqdm):
-        for job_image in tqdm_class(self.jobs_image, desc="do all"):
-            job_image.do_all(tqdm_class=tqdm)
+        with open(f"{PATH_JOBS}/{filename}") as f:
+            data = yaml.safe_load(f)
+
+        jobs = Jobs(**data)
+        jobs.do_all(tqdm_class=tqdm)
 
 
 if __name__ == "__main__":
-    with open(YAML_FILE) as f:
-        data = yaml.safe_load(f)
-
-    jobs = AllJobs(jobs_image=data)
-    jobs.do_all()
+    do_all()
