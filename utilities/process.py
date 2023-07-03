@@ -44,15 +44,15 @@ class AddColorGeneric(BaseModel):
     color_name: str = None
     color_index: int = None
 
-    @validator("color", pre=True, always=True)
-    def populate_color(cls, v, values):
+    @root_validator(pre=True)
+    def populate_color(cls, values):
         """Infer color form color_name and color_index"""
 
         color_name = values.get("color_name")
         color_index = values.get("color_index")
 
         if (color_name is None) and (color_index is None):
-            return v.lower() if v else v
+            return values
 
         elif color_name is None:
             raise ValueError("'color_name' can't be null when 'color_index' is not null")
@@ -60,7 +60,8 @@ class AddColorGeneric(BaseModel):
         elif color_index is None:
             raise ValueError("'color_index' can't be null when 'color_name' is not null")
 
-        return get_colors((color_name, color_index))
+        values["color"] = get_colors((color_name, color_index))
+        return values
 
 
 class AddBackgroundColor(AddColorGeneric):
@@ -71,14 +72,10 @@ class AddBackgroundColor(AddColorGeneric):
     def populate_suffix(cls, v, values):
         """Infer color form color_name and color_index"""
 
-        color_name = values.get("color_name")
-        color_index = values.get("color_index")
-        color = values.get("color")
-
-        if color_name and color_index:
+        if (color_name := values.get("color_name")) and (color_index := values.get("color_index")):
             return f"__{color_name}_{color_index}"
 
-        elif color:
+        elif color := values.get("color"):
             return f"__{color}"
 
         raise ValueError("Invalid color configuration")
@@ -95,14 +92,10 @@ class ToGrayscale(AddColorGeneric):
     def populate_suffix(cls, v, values):
         """Infer color form color_name and color_index"""
 
-        color_name = values.get("color_name")
-        color_index = values.get("color_index")
-        color = values.get("color")
-
-        if color_name and color_index:
+        if (color_name := values.get("color_name")) and (color_index := values.get("color_index")):
             return f"_grayscale__{color_name}_{color_index}"
 
-        elif color:
+        elif color := values.get("color"):
             return f"_grayscale__{color}"
 
         return "_grayscale"
