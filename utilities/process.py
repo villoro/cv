@@ -52,7 +52,7 @@ class AddColorGeneric(BaseModel):
         color_index = values.get("color_index")
 
         if (color_name is None) and (color_index is None):
-            return v.lower()
+            return v.lower() if v else v
 
         elif color_name is None:
             raise ValueError("'color_name' can't be null when 'color_index' is not null")
