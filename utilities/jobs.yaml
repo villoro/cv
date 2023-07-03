@@ -11,4 +11,4 @@
     - transformations:
       - action: remove_bg
       - action: add_background_color
-        color: "#128C7E"
+        color: "#128C7E" # Whatsapp color
