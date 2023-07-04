@@ -118,7 +118,7 @@ class Job(BaseModel):
 
         return out
 
-    def process(self, path_in, folder_out, name):
+    def process(self, path_in, folder_out, name, save=True):
         folder_out = folder_out.rstrip("/")
         path_out = f"{folder_out}/{name}{self.suffixes}.{self.extension}"
 
@@ -132,6 +132,13 @@ class Job(BaseModel):
 
         if self.extension in ("jpg", "jpeg"):
             image = image.convert("RGB")
+
+        if not save:
+            return image
+
+        folder_out = path_out.rsplit("/", maxsplit=1)[0]
+        if not os.path.exists(folder_out):
+            os.makedirs(folder_out)
 
         image.save(path_out)
         return True
