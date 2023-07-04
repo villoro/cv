@@ -4,8 +4,9 @@ import yaml
 
 from pydantic import BaseModel, validator, root_validator
 from tqdm import tqdm
-from typing import Literal, Union
+from typing import Literal, Union, Optional
 from vpalette import get_colors
+from vpalette.colors import COLORS
 
 from image_transformations import (
     get_image,
@@ -18,24 +19,20 @@ from image_transformations import (
 PATH_JOBS = pathlib.Path(__file__).parent.parent / "cv_private" / "utils_jobs"
 
 
-class RoundImage(BaseModel):
-    action: Literal["round"]
-    suffix: str = "_round"
-
-    def run(self, image_in):
-        return round_image(image_in)
-
-
 class RemoveBg(BaseModel):
     action: Literal["remove_bg"]
     suffix: str = "_no_bg"
     alpha_matting: bool = True
-    alpha_matting_erode_size = 40
+    alpha_matting_foreground_threshold: int = 240
+    alpha_matting_background_threshold: int = 10
+    alpha_matting_erode_size: int = 40
 
     def run(self, image_in):
         return remove_bg(
             image_in,
             alpha_matting=self.alpha_matting,
+            alpha_matting_foreground_threshold=self.alpha_matting_foreground_threshold,
+            alpha_matting_background_threshold=self.alpha_matting_background_threshold,
             alpha_matting_erode_size=self.alpha_matting_erode_size,
         )
 
@@ -44,6 +41,15 @@ class AddColorGeneric(BaseModel):
     color: str = None
     color_name: str = None
     color_index: int = None
+    palette: Optional[str]
+
+    @validator("palette")
+    def check_palette(cls, v):
+        """Check palette value"""
+
+        if v not in (valid_colors := list(COLORS)):
+            raise ValueError(f"Color must be one from {valid_colors=}")
+        return v
 
     @root_validator(pre=True)
     def populate_color(cls, values):
@@ -51,6 +57,11 @@ class AddColorGeneric(BaseModel):
 
         color_name = values.get("color_name")
         color_index = values.get("color_index")
+        palette = values.get("palette")
+
+        # Set a default if needed
+        if palette is None:
+            palette = "vtint"
 
         if (color_name is None) and (color_index is None):
             return values
@@ -61,12 +72,17 @@ class AddColorGeneric(BaseModel):
         elif color_index is None:
             raise ValueError("'color_index' can't be null when 'color_name' is not null")
 
-        values["color"] = get_colors((color_name, color_index))
+        values["color"] = get_colors((color_name, color_index), palette=palette)
         return values
 
     @property
     def suffix(self):
-        prefix = "_grayscale" if self.action == "to_grayscale" else ""
+        if self.action == "to_grayscale":
+            prefix = "_grayscale"
+        elif self.action == "round":
+            prefix = "_round"
+        else:
+            prefix = ""
 
         if self.color_name and self.color_index:
             return f"{prefix}__{self.color_name}_{self.color_index}"
@@ -89,6 +105,14 @@ class ToGrayscale(AddColorGeneric):
 
     def run(self, image_in):
         return to_grayscale(image_in, background_color=self.color)
+
+
+class RoundImage(AddColorGeneric):
+    action: Literal["round"]
+    border_width: Optional[int]
+
+    def run(self, image_in):
+        return round_image(image_in, border_color=self.color, border_width=self.border_width)
 
 
 class Job(BaseModel):
@@ -118,7 +142,7 @@ class Job(BaseModel):
 
         return out
 
-    def process(self, path_in, folder_out, name):
+    def process(self, path_in, folder_out, name, save=True):
         folder_out = folder_out.rstrip("/")
         path_out = f"{folder_out}/{name}{self.suffixes}.{self.extension}"
 
@@ -133,6 +157,13 @@ class Job(BaseModel):
         if self.extension in ("jpg", "jpeg"):
             image = image.convert("RGB")
 
+        if not save:
+            return image
+
+        folder_out = path_out.rsplit("/", maxsplit=1)[0]
+        if not os.path.exists(folder_out):
+            os.makedirs(folder_out)
+
         image.save(path_out)
         return True
 
@@ -146,8 +177,11 @@ class Jobs(BaseModel):
     def name(self):
         return self.path_in.split("/")[-1].rsplit(".", maxsplit=1)[0]
 
-    def do_all(self, tqdm_class=tqdm):
-        for job in tqdm_class(self.jobs, desc=self.name):
+    def do_all(self, tqdm_class=tqdm, tqdm_name=None):
+        if tqdm_name is None:
+            tqdm_name = self.name
+
+        for job in tqdm_class(self.jobs, desc=tqdm_name):
             job.process(path_in=self.path_in, folder_out=self.folder_out, name=self.name)
 
 
@@ -160,7 +194,7 @@ def do_all(tqdm_class=tqdm):
             data = yaml.safe_load(f)
 
         jobs = Jobs(**data)
-        jobs.do_all(tqdm_class=tqdm)
+        jobs.do_all(tqdm_class=tqdm_class, tqdm_name=filename)
 
 
 if __name__ == "__main__":
