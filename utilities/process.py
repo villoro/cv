@@ -4,7 +4,7 @@ import yaml
 
 from pydantic import BaseModel, validator, root_validator
 from tqdm import tqdm
-from typing import Literal, Union
+from typing import Literal, Union, Optional
 from vpalette import get_colors
 
 from image_transformations import (
@@ -16,14 +16,6 @@ from image_transformations import (
 )
 
 PATH_JOBS = pathlib.Path(__file__).parent.parent / "cv_private" / "utils_jobs"
-
-
-class RoundImage(BaseModel):
-    action: Literal["round"]
-    suffix: str = "_round"
-
-    def run(self, image_in):
-        return round_image(image_in)
 
 
 class RemoveBg(BaseModel):
@@ -70,7 +62,12 @@ class AddColorGeneric(BaseModel):
 
     @property
     def suffix(self):
-        prefix = "_grayscale" if self.action == "to_grayscale" else ""
+        if self.action == "to_grayscale":
+            prefix = "_grayscale"
+        elif self.action == "round":
+            prefix = "_round"
+        else:
+            prefix = ""
 
         if self.color_name and self.color_index:
             return f"{prefix}__{self.color_name}_{self.color_index}"
@@ -93,6 +90,14 @@ class ToGrayscale(AddColorGeneric):
 
     def run(self, image_in):
         return to_grayscale(image_in, background_color=self.color)
+
+
+class RoundImage(AddColorGeneric):
+    action: Literal["round"]
+    border_width: Optional[int]
+
+    def run(self, image_in):
+        return round_image(image_in, border_color=self.color, border_width=self.border_width)
 
 
 class Job(BaseModel):
