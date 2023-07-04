@@ -30,12 +30,16 @@ class RemoveBg(BaseModel):
     action: Literal["remove_bg"]
     suffix: str = "_no_bg"
     alpha_matting: bool = True
-    alpha_matting_erode_size = 40
+    alpha_matting_foreground_threshold: int = 240
+    alpha_matting_background_threshold: int = 10
+    alpha_matting_erode_size: int = 40
 
     def run(self, image_in):
         return remove_bg(
             image_in,
             alpha_matting=self.alpha_matting,
+            alpha_matting_foreground_threshold=self.alpha_matting_foreground_threshold,
+            alpha_matting_background_threshold=self.alpha_matting_background_threshold,
             alpha_matting_erode_size=self.alpha_matting_erode_size,
         )
 
@@ -153,8 +157,11 @@ class Jobs(BaseModel):
     def name(self):
         return self.path_in.split("/")[-1].rsplit(".", maxsplit=1)[0]
 
-    def do_all(self, tqdm_class=tqdm):
-        for job in tqdm_class(self.jobs, desc=self.name):
+    def do_all(self, tqdm_class=tqdm, tqdm_name=None):
+        if tqdm_name is None:
+            tqdm_name = self.name
+
+        for job in tqdm_class(self.jobs, desc=tqdm_name):
             job.process(path_in=self.path_in, folder_out=self.folder_out, name=self.name)
 
 
@@ -167,7 +174,7 @@ def do_all(tqdm_class=tqdm):
             data = yaml.safe_load(f)
 
         jobs = Jobs(**data)
-        jobs.do_all(tqdm_class=tqdm)
+        jobs.do_all(tqdm_class=tqdm_class, tqdm_name=filename)
 
 
 if __name__ == "__main__":

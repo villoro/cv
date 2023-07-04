@@ -10,10 +10,13 @@ def get_image(path_in):
     return Image.open(path_in)
 
 
-def remove_bg(image_in, alpha_matting=True, alpha_matting_erode_size=40):
+def remove_bg(image_in, alpha_matting=True, alpha_matting_erode_size=40, **kwargs):
     """Remove image background"""
     return remove(
-        image_in, alpha_matting=alpha_matting, alpha_matting_erode_size=alpha_matting_erode_size
+        image_in,
+        alpha_matting=alpha_matting,
+        alpha_matting_erode_size=alpha_matting_erode_size,
+        **kwargs
     )
 
 
