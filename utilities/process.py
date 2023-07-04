@@ -6,6 +6,7 @@ from pydantic import BaseModel, validator, root_validator
 from tqdm import tqdm
 from typing import Literal, Union, Optional
 from vpalette import get_colors
+from vpalette.colors import COLORS
 
 from image_transformations import (
     get_image,
@@ -40,6 +41,15 @@ class AddColorGeneric(BaseModel):
     color: str = None
     color_name: str = None
     color_index: int = None
+    palette: Optional[str]
+
+    @validator("palette")
+    def check_palette(cls, v):
+        """Check palette value"""
+
+        if v not in (valid_colors := list(COLORS)):
+            raise ValueError(f"Color must be one from {valid_colors=}")
+        return v
 
     @root_validator(pre=True)
     def populate_color(cls, values):
@@ -47,6 +57,7 @@ class AddColorGeneric(BaseModel):
 
         color_name = values.get("color_name")
         color_index = values.get("color_index")
+        palette = values.get("palette", "vtint")  # Set a default if needed
 
         if (color_name is None) and (color_index is None):
             return values
@@ -57,7 +68,7 @@ class AddColorGeneric(BaseModel):
         elif color_index is None:
             raise ValueError("'color_index' can't be null when 'color_name' is not null")
 
-        values["color"] = get_colors((color_name, color_index))
+        values["color"] = get_colors((color_name, color_index), palette=palette)
         return values
 
     @property
