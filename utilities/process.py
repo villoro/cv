@@ -57,7 +57,11 @@ class AddColorGeneric(BaseModel):
 
         color_name = values.get("color_name")
         color_index = values.get("color_index")
-        palette = values.get("palette", "vtint")  # Set a default if needed
+        palette = values.get("palette")
+
+        # Set a default if needed
+        if palette is None:
+            palette = "vtint"
 
         if (color_name is None) and (color_index is None):
             return values
