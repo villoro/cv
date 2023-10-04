@@ -18,7 +18,7 @@ markdown = "^3.4.1"
 oyaml = "^1.0"
 
 [tool.poetry.group.utils.dependencies]
-pillow = "^9.4.0"
+pillow = "^10.0.1"
 pydantic = "^1.10.6"
 tqdm = "^4.65.0"
 vpalette = "^3.0.0"
