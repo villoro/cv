@@ -23,6 +23,8 @@ pydantic = "^1.10.6"
 tqdm = "^4.65.0"
 vpalette = "^3.0.0"
 rembg = "^2.0.52"
+jupyter = "^1.0.0"
+notebook = "^7.0.6"
 
 [build-system]
 requires = ["poetry-core"]
