@@ -10,18 +10,14 @@ You can view the full pdf [here](assets/sample.pdf).
 ## Installation
 1. Install all python packages with
 
-	pip install -r requirements.txt
-
-2. Install [wkhtmltopdf](https://wkhtmltopdf.org/)
-
-## Usage
-
-### 0. Install with poetry
-
 ```
 pip install poetry
 poetry install
 ```
+
+2. Install [wkhtmltopdf](https://wkhtmltopdf.org/)
+
+## Usage
 
 ### 1. Create your CVs
 
