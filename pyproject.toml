@@ -13,7 +13,7 @@ repository = "https://github.com/villoro/cv"
 
 [tool.poetry.dependencies]
 python = "^3.11.0"
-flask = "^2.2.3"
+flask = "^2.2.5"
 markdown = "^3.4.1"
 oyaml = "^1.0"
 
