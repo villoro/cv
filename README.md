@@ -31,7 +31,7 @@ Copy `input/sample_1.yaml` and rename it to whatever you like. For example `inpu
 Start the `flask` server from the root folder with:
 
 ```
-poetry run python src/index.py
+poetry run python cv/index.py
 ```
 
 ### 3. Preview the result
@@ -44,7 +44,7 @@ You can also view any file (like `cv1.yml`) from the `input` folder with the url
 To create the pdf for all `yaml` files inside the `input/` folder run from the main path:
 
 ```
-poetry run python src/do_all.py
+poetry run python cv/do_all.py
 ```
 
 > You should change the `wkhtmltopdf` path inside `config.py` and/or `create_sample.sh`.
@@ -52,12 +52,12 @@ poetry run python src/do_all.py
 > Also you need to have `flask` running
 
 ## Configuration
-There are two files to `input/sample_1.yaml` and `src/config.yaml`.
+There are two files to `input/sample_1.yaml` and `cv/config.yaml`.
 
 The first one (`sample_1.yaml`) has the actual content of the CV.
 The second (`config.yaml`) allow users to change some parts of the template.
 
-If you want further configuration you can edit the templates (`src/templates/base.html` and `src/templates/cv.html`) directly or create your own templates (recommended).
+If you want further configuration you can edit the templates (`cv/templates/base.html` and `cv/templates/cv.html`) directly or create your own templates (recommended).
 
 ## Authors
 * [Arnau Villoro](villoro.com)
