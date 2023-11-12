@@ -12,14 +12,14 @@ readme = "README.md"
 repository = "https://github.com/villoro/cv"
 
 [tool.poetry.dependencies]
-python = "~3.11"
+python = ">= 3.10, < 3.12"
 flask = "^2.2.3"
 markdown = "^3.4.1"
 oyaml = "^1.0"
 
 [tool.poetry.group.utils.dependencies]
 pillow = "^10.1.0"
-pydantic = "^2.4.2"
+pydantic = "^1.10.6"
 tqdm = "^4.65.0"
 vpalette = "^3.0.0"
 rembg = "^2.0.52"
