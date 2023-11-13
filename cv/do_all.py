@@ -26,10 +26,10 @@ RAW_COMAND = (
 
 
 def main():
+    """Export all pdfs"""
 
     # Do all in input folder
     for filename in os.listdir(c.PATH_INPUT):
-
         name, extension = filename.split(".")
 
         if extension not in ["yaml", "yml"]:

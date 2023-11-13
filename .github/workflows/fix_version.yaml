@@ -41,7 +41,7 @@ jobs:
       # Update only when needed
       - name: Update version
         if: env.NEEDS_UPDATE == 'true'
-        run: poetry version minor
+        run: poetry version patch
 
       # Commit changes and froce github_status to be updated
       - name: Commit new version
@@ -49,4 +49,4 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actions
-          message: "Poetry minor version update"
+          message: "Poetry patch version update"
