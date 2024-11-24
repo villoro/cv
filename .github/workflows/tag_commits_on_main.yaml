@@ -1,0 +1,35 @@
+name: Tag
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - pyproject.toml
+
+jobs:
+  tag_with_version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up python
+        uses: actions/setup-python@v4
+
+      - name: Install requirements
+        run: pip install toml loguru click
+
+      - name: Checkout current branch
+        uses: actions/checkout@v3
+
+      - name: Get current version
+        run: python .github/scripts/get_version.py --name=current
+
+      - name: Tag commit with current version
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/${{env.VERSION_CURRENT}}`,
+              sha: context.sha
+            })

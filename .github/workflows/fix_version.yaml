@@ -1,0 +1,52 @@
+name: Fix Version
+
+on:
+  pull_request:
+    paths:
+      - cv/**
+      - poetry.lock
+
+jobs:
+  fix_version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up python
+        uses: actions/setup-python@v4
+
+      - name: Install requirements
+        run: pip install poetry==1.6.1 poetry-bumpversion==0.3.1 toml loguru click
+
+      # Get version from main
+      - name: Checkout main
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Get main version
+        run: python .github/scripts/get_version.py --name=main
+
+      # Get version from current branch
+      - name: Checkout current branch
+        uses: actions/checkout@v3
+        with:
+          # Those are needed because of https://github.com/EndBug/add-and-commit#working-with-prs
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+      - name: Get current version
+        run: python .github/scripts/get_version.py --name=current
+
+      # Checks if version needs updating
+      - name: Check if version needs to be updated
+        run: python .github/scripts/check_if_update_needed.py --version_current=$VERSION_CURRENT --version_main=$VERSION_MAIN
+
+      # Update only when needed
+      - name: Update version
+        if: env.NEEDS_UPDATE == 'true'
+        run: poetry version patch
+
+      # Commit changes and froce github_status to be updated
+      - name: Commit new version
+        if: env.NEEDS_UPDATE == 'true'
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: "Poetry patch version update"
