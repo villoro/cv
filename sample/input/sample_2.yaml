@@ -145,8 +145,3 @@ config:
   # Frame for previewing
   frame_padding: 10
   frame_color: "#757575" # Grey 600
-
-  # Cover letter paddings
-  cover_padding_top: 10
-  cover_padding_bottom: 20
-  cover_padding_h: 25
