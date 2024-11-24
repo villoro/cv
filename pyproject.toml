@@ -3,7 +3,7 @@ line-length = 100
 
 [tool.poetry]
 name = "cv"
-version = "2.1.0"
+version = "2.1.1"
 description = "Programatically create CVs"
 authors = ["Arnau Villoro <arnau@villoro.com>"]
 maintainers = ["Arnau Villoro <arnau@villoro.com>"]
