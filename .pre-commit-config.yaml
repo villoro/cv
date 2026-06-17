@@ -10,6 +10,8 @@ repos:
   - id: check-merge-conflict
   - id: no-commit-to-branch
   - id: pretty-format-json
+    # npm manages key order/formatting in these; don't let the hook reorder them.
+    exclude: ^(package\.json|package-lock\.json|tsconfig\.json)$
 
   # Python linter
 - repo: https://github.com/psf/black
