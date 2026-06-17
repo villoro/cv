@@ -70,3 +70,9 @@ node_modules/
 .astro/
 dist/
 *.log
+
+# --------------------- PYTHON ENV --------------------------------------------
+.venv/
+
+# --------------------- EDITOR / TOOLING --------------------------------------
+.claude/settings.local.json
