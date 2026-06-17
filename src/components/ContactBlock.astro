@@ -1,0 +1,75 @@
+---
+// Contact section of the sidebar (address / phone / email / web / linkedin).
+// Shared by both cv_with_bars and cv_no_bars.
+import type { CvData } from "../lib/cv";
+const { data, theme } = Astro.props as { data: CvData; theme: string };
+const icon = (name: string) => `/icons/${theme}/${name}.jpg`;
+---
+
+<h3>{data.titles?.contact}</h3>
+
+{data.address && (
+  <>
+    <div class="skill-container">
+      <img class="icon" src={icon("address")} />
+      <div class="contact-container">
+        <div class="contact-text">
+          {data.address.map((x) => <p>{x}</p>)}
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </>
+)}
+
+{data.phone && (
+  <>
+    <div class="skill-container">
+      <img class="icon" src={icon("phone")} />
+      <div class="contact-container">
+        <p class="contact-text">{data.phone}</p>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </>
+)}
+
+{data.email && (
+  <>
+    <div class="skill-container">
+      <img class="icon" src={icon("email")} />
+      <div class="contact-container">
+        <p class="contact-text">
+          <a href={`mailto:${data.email}`} style="display: block;">{data.email}</a>
+        </p>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </>
+)}
+
+{data.web && (
+  <>
+    <div class="skill-container">
+      <img class="icon" src={icon("web")} />
+      <div class="contact-container">
+        <p class="contact-text"><a href={data.web}>{data.web}</a></p>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </>
+)}
+
+{data.linkedin && (
+  <>
+    <div class="skill-container">
+      <img class="icon" src={icon("linkedin")} />
+      <div class="contact-container">
+        <p class="contact-text">
+          <a href={`https://www.linkedin.com/${data.linkedin}`}>{data.linkedin}</a>
+        </p>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </>
+)}

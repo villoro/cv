@@ -1,0 +1,26 @@
+---
+// Full HTML document for the standalone cover page (was cover.html).
+import type { CvData } from "../lib/cv";
+import { coverCss } from "../lib/styles";
+
+const { data, preview } = Astro.props as { data: CvData; preview: boolean };
+const css = coverCss(data.config);
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style set:html={css}></style>
+  </head>
+  <body>
+    <div class={preview ? "frame" : undefined}>
+      <div class="page">
+        <div class="body">
+          <h1>{data.full_name}</h1>
+          {data.description && <div class="description" set:html={data.description} />}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

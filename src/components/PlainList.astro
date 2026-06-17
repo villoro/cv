@@ -1,0 +1,14 @@
+---
+// A titled plain list (expertise without bars, or key skills).
+const { title, items } = Astro.props as { title?: string; items: string[] };
+---
+
+<h3>{title}</h3>
+<div class="skill-container">
+  {items.map((name) => (
+    <>
+      <p style="margin-bottom: 5px">{name}</p>
+      <div class="skill-spacer"></div>
+    </>
+  ))}
+</div>

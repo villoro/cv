@@ -1,0 +1,13 @@
+---
+// "/print/<name>" — frameless, print-ready page that the PDF exporter renders.
+import { getContent, listNames } from "../../lib/cv";
+import CvPage from "../../components/CvPage.astro";
+
+export function getStaticPaths() {
+  return listNames().map((name) => ({ params: { name } }));
+}
+
+const data = getContent(Astro.params.name);
+---
+
+<CvPage data={data} preview={false} />

@@ -1,0 +1,13 @@
+---
+// "/v/<name>" — a named CV with the preview frame.
+import { getContent, listNames } from "../../lib/cv";
+import CvPage from "../../components/CvPage.astro";
+
+export function getStaticPaths() {
+  return listNames().map((name) => ({ params: { name } }));
+}
+
+const data = getContent(Astro.params.name);
+---
+
+<CvPage data={data} preview={true} />
