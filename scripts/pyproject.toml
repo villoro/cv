@@ -6,7 +6,7 @@
 #   uv run python process.py
 [project]
 name = "cv-utilities"
-version = "2.1.1"
+version = "3.0.0"
 description = "Image-processing utilities for the Easy CV project"
 authors = [{ name = "Arnau Villoro", email = "arnau@villoro.com" }]
 readme = "../README.md"
@@ -22,6 +22,4 @@ dependencies = [
     "jupyter>=1.0.0",
     "notebook>=7.0.6",
 ]
-
-[tool.black]
-line-length = 100
+# Formatting/linting config lives in the repo-root ruff.toml.
