@@ -1,18 +1,16 @@
 // Loads CV data from YAML files and converts the Markdown fields to HTML.
-// Direct port of the old Flask `cv/utilities.py` + `cv/config.py`.
 import fs from "node:fs";
 import path from "node:path";
 import yaml from "js-yaml";
 import { marked } from "marked";
 
-// Where the YAML inputs live. The old Flask `config.py` toggled between
-// "cv_private/input" (private submodule) and "sample/input" by editing source.
-// Here it is an env var so nothing in source has to change.
+// Where the YAML inputs live. Set CV_DATA_DIR to point elsewhere (e.g.
+// "cv_private/input"); defaults to the sample folder.
 export const DATA_DIR = process.env.CV_DATA_DIR
   ? path.resolve(process.env.CV_DATA_DIR)
   : path.resolve("sample/input");
 
-// Default CV shown at "/" (was FILE_DEFAULT = "sample_1").
+// Default CV shown at "/".
 export const DEFAULT_NAME = process.env.CV_DEFAULT ?? "sample_1";
 
 export interface CvEntry {
@@ -52,8 +50,7 @@ function md(text: string): string {
   return marked.parse(text) as string;
 }
 
-// Mirrors utilities._transform_from_markdown: render the pitch and every body
-// entry description from Markdown to HTML.
+// Render the pitch and every body entry description from Markdown to HTML.
 function transformMarkdown(data: CvData): void {
   if (data.description) data.description = md(data.description);
   if (data.body) {

@@ -1,5 +1,4 @@
 // Export every CV to PDF using headless Chromium (Playwright).
-// Replaces the old `cv/do_all.py` wkhtmltopdf wrapper.
 //
 // Assumes `astro build` has already run (dist/ exists). It boots Astro's
 // static preview server, then prints each /print/<name>.html to a PDF.

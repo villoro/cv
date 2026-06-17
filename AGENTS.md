@@ -10,16 +10,13 @@ styling is inline, millimeter-based CSS so each page maps 1:1 to a physical A4 s
 
 The PDF is the real deliverable — the website is just the rendering surface for the converter.
 
-> Migrated from Flask + wkhtmltopdf to Astro + Playwright (branch `feat/migrate_astro`).
-> See "History" at the bottom for what the old stack looked like.
-
-## Architecture (Astro)
+## Architecture
 
 ```
 src/
   lib/
-    cv.ts          # load YAML + render Markdown to HTML (ports old utilities.py/config.py)
-    styles.ts      # CSS ported verbatim from the old Jinja templates, config interpolated
+    cv.ts          # load YAML + render Markdown to HTML
+    styles.ts      # inline CSS for the documents, config values interpolated
   components/
     ContactBlock.astro   # sidebar contact rows (address/phone/email/web/linkedin)
     SkillBars.astro      # titled bar list (languages / expertise / programming)
@@ -30,13 +27,13 @@ src/
     CvDocument.astro     # full doc for cv_with_bars / cv_no_bars
     CoverDocument.astro  # full doc for the standalone cover page
   pages/
-    index.astro          # "/"        -> default CV (preview frame)
-    v/[name].astro       # "/v/<name>"     -> named CV (preview frame)
-    view/[name].astro    # "/view/<name>"  -> alias of /v
-    print/[name].astro   # "/print/<name>" -> frameless, what the PDF exporter renders
+    index.astro          # "/"             -> default CV (preview frame)
+    v/[name].astro       # "/v/<name>"      -> named CV (preview frame)
+    view/[name].astro    # "/view/<name>"   -> alias of /v
+    print/[name].astro   # "/print/<name>"  -> frameless, what the PDF exporter renders
 public/                  # fonts/, icons/ (17 themes x 5), images/ (served from site root)
 scripts/
-  export-pdf.mjs   # boots `astro preview`, prints each /print/<name> to PDF (was do_all.py)
+  export-pdf.mjs   # boots `astro preview`, prints each /print/<name> to PDF
   process.py + image_transformations.py  # offline Python image pipeline (Pillow/rembg)
   pyproject.toml + uv.lock               # uv project for the Python pipeline (NOT the web/PDF path)
 sample/{input,output}/   # public sample YAMLs + generated PDFs (test fixture)
@@ -51,7 +48,7 @@ labels = the i18n mechanism), `description` (markdown pitch), `expertise`, `lang
 section → entries with `start/end/title/title_link/company/company_link/description`),
 and `config` (page size, theme colour, sidebar width + many mm spacing knobs).
 
-`description` and each body `description` are Markdown → rendered to HTML in `cv.ts` and
+`description` and each body `description` are Markdown, rendered to HTML in `cv.ts` and
 injected with `set:html`.
 
 ### Data source selection
@@ -76,27 +73,19 @@ npm run pdf                       # export PDFs from existing dist/
 npm run build:pdf                 # build + export
 ```
 
-## Known follow-ups / gotchas
-- **Only `cv_no_bars` is exercised** by real data (all 10 input files use it). `cv_with_bars`
-  and `cover` are ported and code-reviewed but have no test data — verify if they're ever used.
-- **Profile images are generated artifacts.** Real CVs point `image_uri` at a processed PNG
-  (e.g. `images/DSC_0136_*.png`) that does NOT live in the repo — the Python pipeline in
-  `scripts/` produces it. Post-migration its `folder_out` (set per-job in the private
-  `cv_private/utils_jobs/*.yaml`) should write into `public/images`, not the old `cv/static/images`.
-  Until then, real CVs render a broken-image box (defaults render fine).
-- **Fidelity:** Chromium packs the pitch paragraphs a touch tighter than the old wkhtmltopdf,
-  so the right column sits ~5mm higher. Agreed acceptable ("visually equivalent").
-- **Python pipeline uses uv** (migrated from Poetry). It lives in `scripts/` with its own
-  `pyproject.toml` + `uv.lock`; run it with `uv sync` / `uv run python process.py` from `scripts/`.
-- **Hooks:** run with **prek** (drop-in for pre-commit, same `.pre-commit-config.yaml`). CI uses
-  `j178/prek-action@v2`. Python lint+format is **ruff** (replaced black); `ruff.toml` sets
-  `line-length = 100` repo-wide.
-- **Version automation uses [villoro/vhooks](https://github.com/villoro/vhooks)** reading
-  `package.json` → `version`. `check_version.yaml` (PR) enforces a version bump; `tag_version.yaml`
-  (push to `main`) creates the tag. Repo version is **`3.0.0`** (major: the Flask→Astro re-platform).
-  The Python sub-project in `scripts/` tracks the same version.
+## Tooling
+- **Hooks:** run with **prek** (config in `.pre-commit-config.yaml`). CI uses `j178/prek-action@v2`.
+- **Python lint+format:** **ruff**; `ruff.toml` sets `line-length = 100`.
+- **Python deps:** **uv** — `scripts/pyproject.toml` + `scripts/uv.lock`; run with
+  `uv sync` / `uv run python process.py` from `scripts/`.
+- **Versioning:** [villoro/vhooks](https://github.com/villoro/vhooks) reads `package.json` →
+  `version`. `check_version.yaml` (PR) enforces a bump; `tag_version.yaml` (push to `main`) tags.
+  Repo version is **`3.0.0`**.
 
-## History (old Flask stack, removed)
-`cv/index.py` (Flask, 4 routes) rendered Jinja templates `cv_base.html` +
-`cv_with_bars/cv_no_bars/cover`; `cv/do_all.py` shelled out to `wkhtmltopdf` against
-`localhost:5000/print/<name>`. Content loaded by `cv/utilities.py`, config in `cv/config.py`.
+## Known gotchas
+- All current input YAMLs use the `cv_no_bars` template. `cv_with_bars` and `cover` are
+  implemented but have no test data — verify if they're ever used.
+- **Profile images are generated artifacts.** Real CVs point `image_uri` at a processed PNG
+  (e.g. `images/DSC_0136_*.png`) that is not stored in the repo — the `scripts/` Python pipeline
+  produces it. Set that pipeline's `folder_out` (per-job in `cv_private/utils_jobs/*.yaml`) to
+  `public/images`; until then real CVs render a broken-image box (defaults render fine).

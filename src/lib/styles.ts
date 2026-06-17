@@ -1,6 +1,6 @@
-// CSS ported verbatim from the old Jinja templates, with the per-CV `config`
-// values interpolated exactly as Flask/Jinja used to. Kept as a string so the
-// millimeter-precise, float-based layout matches the original 1:1.
+// Inline CSS for the CV documents. Per-CV `config` values are interpolated into
+// the stylesheet; kept as a string so the millimeter-precise, float-based layout
+// stays exact.
 type Cfg = Record<string, number | string>;
 
 const fontFaces = `
@@ -9,7 +9,7 @@ const fontFaces = `
 @font-face { font-family: "Avenir 55"; src: url("/fonts/AvenirLTStd-Roman.otf"); }
 `;
 
-// Styles shared by cv_with_bars + cv_no_bars (was cv_base.html).
+// Styles shared by cv_with_bars + cv_no_bars.
 export function sidebarCss(c: Cfg): string {
   const n = (k: string) => Number(c[k]);
   return `
@@ -87,7 +87,7 @@ li:before { content: "- "; }
 `;
 }
 
-// Standalone cover page styles (was cover.html). cover_padding_* keys are
+// Standalone cover page styles. cover_padding_* keys are
 // optional in the YAML, so sensible defaults are supplied.
 export function coverCss(c: Cfg): string {
   const n = (k: string) => Number(c[k]);

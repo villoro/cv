@@ -13,7 +13,7 @@ repos:
     # npm manages key order/formatting in these; don't let the hook reorder them.
     exclude: ^(package\.json|package-lock\.json|tsconfig\.json)$
 
-  # Python linter + formatter (ruff replaces black)
+  # Python linter + formatter
 - repo: https://github.com/astral-sh/ruff-pre-commit
   rev: v0.15.17
   hooks:
