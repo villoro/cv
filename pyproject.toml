@@ -4,7 +4,9 @@ line-length = 100
 [tool.poetry]
 name = "cv"
 version = "2.1.1"
-description = "Programatically create CVs"
+# The CV website + PDF export now live in the Astro app (see package.json).
+# This Poetry project only covers the optional image-processing pipeline in utilities/.
+description = "Image-processing utilities for the Easy CV project"
 authors = ["Arnau Villoro <arnau@villoro.com>"]
 maintainers = ["Arnau Villoro <arnau@villoro.com>"]
 license = "MIT"
@@ -13,9 +15,6 @@ repository = "https://github.com/villoro/cv"
 
 [tool.poetry.dependencies]
 python = ">= 3.10, < 3.12"
-flask = "^2.2.3"
-markdown = "^3.4.1"
-oyaml = "^1.0"
 
 [tool.poetry.group.utils.dependencies]
 pillow = "^10.1.0"
@@ -23,6 +22,7 @@ pydantic = "^1.10.6"
 tqdm = "^4.65.0"
 vpalette = "^3.0.0"
 rembg = "^2.0.52"
+pyyaml = "^6.0"
 jupyter = "^1.0.0"
 notebook = "^7.0.6"
 
