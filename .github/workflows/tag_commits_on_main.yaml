@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - pyproject.toml
+      - package.json
 
 jobs:
   tag_with_version:
@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-python@v4
 
       - name: Install requirements
-        run: pip install toml loguru click
+        run: pip install loguru click
 
       - name: Checkout current branch
         uses: actions/checkout@v3

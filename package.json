@@ -1,7 +1,7 @@
 {
   "name": "cv",
   "type": "module",
-  "version": "0.1.0",
+  "version": "2.1.2",
   "private": true,
   "description": "Personal CV generator: Astro website exported to PDF via Playwright (Chromium)",
   "scripts": {

@@ -3,8 +3,12 @@ name: Fix Version
 on:
   pull_request:
     paths:
-      - cv/**
-      - poetry.lock
+      - src/**
+      - public/**
+      - scripts/**
+      - astro.config.mjs
+      - package.json
+      - package-lock.json
 
 jobs:
   fix_version:
@@ -13,8 +17,13 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v4
 
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Install requirements
-        run: pip install poetry==1.6.1 poetry-bumpversion==0.3.1 toml loguru click
+        run: pip install loguru click packaging
 
       # Get version from main
       - name: Checkout main
@@ -38,15 +47,15 @@ jobs:
       - name: Check if version needs to be updated
         run: python .github/scripts/check_if_update_needed.py --version_current=$VERSION_CURRENT --version_main=$VERSION_MAIN
 
-      # Update only when needed
+      # Update only when needed (also bumps package-lock.json)
       - name: Update version
         if: env.NEEDS_UPDATE == 'true'
-        run: poetry version patch
+        run: npm version patch --no-git-tag-version
 
-      # Commit changes and froce github_status to be updated
+      # Commit changes and force github_status to be updated
       - name: Commit new version
         if: env.NEEDS_UPDATE == 'true'
         uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actions
-          message: "Poetry patch version update"
+          message: "Patch version update"

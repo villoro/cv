@@ -88,10 +88,11 @@ npm run build:pdf                 # build + export
   so the right column sits ~5mm higher. Agreed acceptable ("visually equivalent").
 - **Python pipeline uses uv** (migrated from Poetry). It lives in `scripts/` with its own
   `pyproject.toml` + `uv.lock`; run it with `uv sync` / `uv run python process.py` from `scripts/`.
-- **Version automation is orphaned.** `.github/workflows/{fix_version,tag_commits_on_main}.yaml`
-  + `.github/scripts/` read `[tool.poetry].version` from the old root `pyproject.toml` (now gone)
-  and trigger on removed paths (`cv/**`, `poetry.lock`). Pending decision on where the repo
-  version should live (likely `package.json`).
+- **Version automation reads `package.json`.** `.github/scripts/` + the `fix_version` /
+  `tag_commits_on_main` workflows now read `package.json` `version` (was `[tool.poetry].version`).
+  `fix_version` bumps with `npm version patch` on app-path PRs; `tag_commits_on_main` tags `main`
+  pushes that touch `package.json`. `get_version` falls back to `0.0.0` when `package.json` is
+  absent (e.g. comparing against pre-migration `main`). Version continues from `2.1.2`.
 
 ## History (old Flask stack, removed)
 `cv/index.py` (Flask, 4 routes) rendered Jinja templates `cv_base.html` +

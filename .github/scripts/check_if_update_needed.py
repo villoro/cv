@@ -9,8 +9,7 @@ from utils import set_output
 @click.command()
 @click.option("--version_current")
 @click.option("--version_main")
-@click.option("--project", default="dbt", help="'dbt' or 'docker'")
-def compare_versions(version_current, version_main, project):
+def compare_versions(version_current, version_main):
     log.info(f"Running with {version_current=}, {version_main=}")
 
     version_current = version.parse(version_current)

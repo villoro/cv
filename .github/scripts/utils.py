@@ -1,13 +1,16 @@
+import json
 import os
 
-import toml
 from loguru import logger as log
 
-PYPROJECT_FILE = "pyproject.toml"
+PACKAGE_JSON = "package.json"
 
 
-def read_pyproject():
-    return toml.load(PYPROJECT_FILE)
+def read_package_json():
+    if not os.path.exists(PACKAGE_JSON):
+        return {}
+    with open(PACKAGE_JSON, encoding="utf8") as stream:
+        return json.load(stream)
 
 
 def set_output(name, value):
@@ -16,22 +19,7 @@ def set_output(name, value):
         print(f"{name}={value}", file=fh)
 
 
-def get_version_from_toml(project="dbt"):
-    config = read_pyproject()
-
-    if project == "dbt":
-        log.info("Retrieving dbt/python version")
-        aux = config["tool"]["poetry"]
-    elif project == "docker":
-        log.info("Retrieving docker version")
-        aux = config["docker"]
-    else:
-        log.error(f"{project=} must be 'dbt' or 'docker'")
-
-    return aux["version"]
-
-
-def save_pyproject(data):
-    log.info(f"Exporting '{PYPROJECT_FILE}'")
-    with open(PYPROJECT_FILE, "w", encoding="utf8") as stream:
-        toml.dump(data, stream)
+def get_version():
+    # Fall back to 0.0.0 when package.json is missing (e.g. comparing against a
+    # historical 'main' that predates the Astro migration).
+    return read_package_json().get("version", "0.0.0")
