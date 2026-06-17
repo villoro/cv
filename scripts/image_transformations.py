@@ -16,7 +16,7 @@ def remove_bg(image_in, alpha_matting=True, alpha_matting_erode_size=40, **kwarg
         image_in,
         alpha_matting=alpha_matting,
         alpha_matting_erode_size=alpha_matting_erode_size,
-        **kwargs
+        **kwargs,
     )
 
 
