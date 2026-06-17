@@ -88,11 +88,13 @@ npm run build:pdf                 # build + export
   so the right column sits ~5mm higher. Agreed acceptable ("visually equivalent").
 - **Python pipeline uses uv** (migrated from Poetry). It lives in `scripts/` with its own
   `pyproject.toml` + `uv.lock`; run it with `uv sync` / `uv run python process.py` from `scripts/`.
-- **Version automation reads `package.json`.** `.github/scripts/` + the `fix_version` /
-  `tag_commits_on_main` workflows now read `package.json` `version` (was `[tool.poetry].version`).
-  `fix_version` bumps with `npm version patch` on app-path PRs; `tag_commits_on_main` tags `main`
-  pushes that touch `package.json`. `get_version` falls back to `0.0.0` when `package.json` is
-  absent (e.g. comparing against pre-migration `main`). Version continues from `2.1.2`.
+- **Hooks:** run with **prek** (drop-in for pre-commit, same `.pre-commit-config.yaml`). CI uses
+  `j178/prek-action@v2`. Python lint+format is **ruff** (replaced black); `ruff.toml` sets
+  `line-length = 100` repo-wide.
+- **Version automation uses [villoro/vhooks](https://github.com/villoro/vhooks)** reading
+  `package.json` → `version`. `check_version.yaml` (PR) enforces a version bump; `tag_version.yaml`
+  (push to `main`) creates the tag. Repo version is **`3.0.0`** (major: the Flask→Astro re-platform).
+  The Python sub-project in `scripts/` tracks the same version.
 
 ## History (old Flask stack, removed)
 `cv/index.py` (Flask, 4 routes) rendered Jinja templates `cv_base.html` +

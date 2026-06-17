@@ -1,0 +1,26 @@
+name: Tag Version
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  tag_version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: villoro/vhooks/tag_version@1.4.0
+        with:
+          file: "package.json"
+          path: "version"
+          filters: |
+            code:
+              - 'src/**'
+              - 'public/**'
+              - 'scripts/**'
+              - 'astro.config.mjs'
+              - 'package.json'
+              - 'package-lock.json'
