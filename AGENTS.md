@@ -35,10 +35,12 @@ src/
     view/[name].astro    # "/view/<name>"  -> alias of /v
     print/[name].astro   # "/print/<name>" -> frameless, what the PDF exporter renders
 public/                  # fonts/, icons/ (17 themes x 5), images/ (served from site root)
-scripts/export-pdf.mjs   # boots `astro preview`, prints each /print/<name> to PDF (was do_all.py)
+scripts/
+  export-pdf.mjs   # boots `astro preview`, prints each /print/<name> to PDF (was do_all.py)
+  process.py + image_transformations.py  # offline Python image pipeline (Pillow/rembg)
+  pyproject.toml + uv.lock               # uv project for the Python pipeline (NOT the web/PDF path)
 sample/{input,output}/   # public sample YAMLs + generated PDFs (test fixture)
 cv_private/{input,output}/ # private data (git submodule): 7 language variants + sample
-utilities/               # offline Python image pipeline (Pillow/rembg) — NOT part of web/PDF path
 ```
 
 ### Data model (YAML per CV)
@@ -79,13 +81,17 @@ npm run build:pdf                 # build + export
   and `cover` are ported and code-reviewed but have no test data — verify if they're ever used.
 - **Profile images are generated artifacts.** Real CVs point `image_uri` at a processed PNG
   (e.g. `images/DSC_0136_*.png`) that does NOT live in the repo — the Python pipeline in
-  `utilities/` produces it. Post-migration its `folder_out` (set per-job in the private
+  `scripts/` produces it. Post-migration its `folder_out` (set per-job in the private
   `cv_private/utils_jobs/*.yaml`) should write into `public/images`, not the old `cv/static/images`.
   Until then, real CVs render a broken-image box (defaults render fine).
 - **Fidelity:** Chromium packs the pitch paragraphs a touch tighter than the old wkhtmltopdf,
   so the right column sits ~5mm higher. Agreed acceptable ("visually equivalent").
-- **poetry.lock was removed** (couldn't regenerate without poetry installed). Run `poetry lock`
-  if you use the `utilities/` Python pipeline. `pyproject.toml` now only covers `utilities/`.
+- **Python pipeline uses uv** (migrated from Poetry). It lives in `scripts/` with its own
+  `pyproject.toml` + `uv.lock`; run it with `uv sync` / `uv run python process.py` from `scripts/`.
+- **Version automation is orphaned.** `.github/workflows/{fix_version,tag_commits_on_main}.yaml`
+  + `.github/scripts/` read `[tool.poetry].version` from the old root `pyproject.toml` (now gone)
+  and trigger on removed paths (`cv/**`, `poetry.lock`). Pending decision on where the repo
+  version should live (likely `package.json`).
 
 ## History (old Flask stack, removed)
 `cv/index.py` (Flask, 4 routes) rendered Jinja templates `cv_base.html` +

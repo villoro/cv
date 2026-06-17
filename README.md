@@ -72,9 +72,17 @@ The layouts and their CSS live in `src/layouts/`, `src/components/`, and
 ## Profile / contact images
 
 Images referenced by `image_uri` are served from `public/` (e.g.
-`image_uri: images/me.png` → `public/images/me.png`). The optional image-processing
-pipeline in `utilities/` (Python) can generate these; point its `folder_out` at
-`public/images`.
+`image_uri: images/me.png` → `public/images/me.png`).
+
+The optional image-processing pipeline that generates these lives in `scripts/`
+(Python, managed with [uv](https://docs.astral.sh/uv/)) — point its `folder_out` at
+`public/images`:
+
+```
+cd scripts
+uv sync
+uv run python process.py
+```
 
 ## Authors
 * [Arnau Villoro](villoro.com)
