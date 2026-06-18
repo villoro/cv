@@ -2,8 +2,9 @@
 // Contact section of the sidebar (address / phone / email / web / linkedin).
 // Shared by both cv_with_bars and cv_no_bars.
 import type { CvData } from "../lib/cv";
+import { assetUrl } from "../lib/cv";
 const { data, theme } = Astro.props as { data: CvData; theme: string };
-const icon = (name: string) => `/icons/${theme}/${name}.jpg`;
+const icon = (name: string) => assetUrl(`icons/${theme}/${name}.jpg`);
 ---
 
 <h3>{data.titles?.contact}</h3>

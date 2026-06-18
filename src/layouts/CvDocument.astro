@@ -1,6 +1,7 @@
 ---
 // Full HTML document for the sidebar CV templates (cv_with_bars / cv_no_bars).
 import type { CvData } from "../lib/cv";
+import { assetUrl } from "../lib/cv";
 import { sidebarCss } from "../lib/styles";
 import ContactBlock from "../components/ContactBlock.astro";
 import SkillBars from "../components/SkillBars.astro";
@@ -30,10 +31,10 @@ const t = data.titles ?? {};
             {data.image_uri && (
               data.image_link ? (
                 <a href={data.image_link} style="display: block;">
-                  <img class="profile" src={`/${data.image_uri}`} />
+                  <img class="profile" src={assetUrl(data.image_uri)} />
                 </a>
               ) : (
-                <img class="profile" src={`/${data.image_uri}`} />
+                <img class="profile" src={assetUrl(data.image_uri)} />
               )
             )}
 

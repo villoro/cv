@@ -62,6 +62,14 @@ function transformMarkdown(data: CvData): void {
   }
 }
 
+/**
+ * Root-relative URL for a file served from public/, with each path segment
+ * URL-encoded so names containing `#`, spaces, etc. resolve correctly.
+ */
+export function assetUrl(relPath: string): string {
+  return "/" + relPath.split("/").map(encodeURIComponent).join("/");
+}
+
 /** Names of every CV available (file stems, without extension). */
 export function listNames(): string[] {
   return fs
