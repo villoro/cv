@@ -1,6 +1,7 @@
 # Easy CV
 
-Create a `pdf` CV based on some `html` templates and data from `yaml`.
+Create a `pdf` CV from `yaml` data, rendered by a static [Astro](https://astro.build/)
+site and exported to PDF with headless Chromium ([Playwright](https://playwright.dev/)).
 
 Screenshot of the result:
 ![home](assets/preview.jpg)
@@ -8,52 +9,91 @@ Screenshot of the result:
 You can view the full pdf [here](assets/sample.pdf).
 
 ## Installation
-1. Install all python packages with
+
+1. Install [Node.js](https://nodejs.org/) (v18+).
+2. Install the dependencies and the Chromium browser used for PDF export:
 
 ```
-pip install poetry
-poetry install
+npm install
+npx playwright install chromium
 ```
-
-2. Install [wkhtmltopdf](https://wkhtmltopdf.org/)
 
 ## Usage
 
 ### 1. Create your CVs
 
-Copy `input/sample_1.yaml` and rename it to whatever you like. For example `input/cv1.yaml`.
+Copy `sample/input/sample_1.yaml` and rename it to whatever you like, e.g.
+`sample/input/cv1.yaml`. Each YAML file produces one CV.
 
-### 2. Start Flask
-Start the `flask` server from the root folder with:
-
-```
-poetry run python cv/index.py
-```
-
-### 3. Preview the result
-Open `http://localhost:5000/` to preview the result
-
-You can also view any file (like `cv1.yml`) from the `input` folder with the url `http://localhost:5000/v/cv1`.
-
-### 4. Create the pdf
-
-To create the pdf for all `yaml` files inside the `input/` folder run from the main path:
+By default the site reads from `sample/input/`. To use a different folder (for
+example a private one) set the `CV_DATA_DIR` environment variable:
 
 ```
-poetry run python cv/do_all.py
+# PowerShell
+$env:CV_DATA_DIR = "cv_private/input"
+
+# CMD
+set CV_DATA_DIR=cv_private/input
 ```
 
-> You should change the `wkhtmltopdf` path inside `config.py` and/or `create_sample.sh`.
+### 2. Preview in the browser
 
-> Also you need to have `flask` running
+```
+npm run dev
+```
+
+- `http://localhost:4321/` — the default CV (`sample_1`).
+- `http://localhost:4321/v/<name>` — any CV from the input folder (e.g. `/v/cv1`).
+- `http://localhost:4321/print/<name>` — the frameless, print-ready version.
+
+### 3. Create the PDFs
+
+Build the site and export every CV in the input folder to PDF:
+
+```
+npm run build:pdf
+```
+
+PDFs are written to `sample/output/` by default (override with the `CV_OUTPUT_DIR`
+environment variable). `npm run pdf` exports without rebuilding if `dist/` is
+already up to date.
+
+```
+# PowerShell
+$env:CV_OUTPUT_DIR = "cv_private/output"
+
+# CMD
+set CV_OUTPUT_DIR=cv_private/output
+```
 
 ## Configuration
-There are two files to `input/sample_1.yaml` and `cv/config.yaml`.
 
-The first one (`sample_1.yaml`) has the actual content of the CV.
-The second (`config.yaml`) allow users to change some parts of the template.
+Each CV's `yaml` file holds both the **content** and a `config` block that controls
+the look (page size, theme colour, sidebar width, spacings — all in millimetres).
+Pick the layout with the top-level `template` field:
 
-If you want further configuration you can edit the templates (`cv/templates/base.html` and `cv/templates/cv.html`) directly or create your own templates (recommended).
+- `cv_no_bars` — sidebar with expertise/key-skills as lists, languages as bars.
+- `cv_with_bars` — sidebar with expertise/programming/languages all as bars.
+- `cover` — a standalone full-width cover page.
+
+The layouts and their CSS live in `src/layouts/`, `src/components/`, and
+`src/lib/styles.ts`. The contact-icon theme is chosen with `config.theme_color_name`
+(a folder under `public/icons/`).
+
+## Profile / contact images
+
+Images referenced by `image_uri` are served from `public/` (e.g.
+`image_uri: images/me.png` → `public/images/me.png`).
+
+The optional image-processing pipeline that generates these lives in `scripts/`
+(Python, managed with [uv](https://docs.astral.sh/uv/)) — point its `folder_out` at
+`public/images`:
+
+```
+cd scripts
+uv sync
+uv run python process.py
+```
 
 ## Authors
 * [Arnau Villoro](villoro.com)

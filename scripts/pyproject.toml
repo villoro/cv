@@ -1,0 +1,25 @@
+# uv project for the optional image-processing pipeline (process.py / image_transformations.py).
+# This is a standalone helper, separate from the Astro app at the repo root.
+#
+# Usage (from this folder):
+#   uv sync
+#   uv run python process.py
+[project]
+name = "cv-utilities"
+version = "3.0.0"
+description = "Image-processing utilities for the Easy CV project"
+authors = [{ name = "Arnau Villoro", email = "arnau@villoro.com" }]
+readme = "../README.md"
+license = "MIT"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "pillow>=10.1.0",
+    "pydantic>=1.10.6,<2",   # process.py uses v1 APIs (validator, root_validator)
+    "tqdm>=4.65.0",
+    "vpalette>=3.0.0",
+    "rembg>=2.0.52",
+    "pyyaml>=6.0",
+    "jupyter>=1.0.0",
+    "notebook>=7.0.6",
+]
+# Formatting/linting config lives in the repo-root ruff.toml.

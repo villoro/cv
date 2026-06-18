@@ -1,0 +1,38 @@
+---
+// Main column: name, optional pitch, then each body section (Experience,
+// Education, ...) with its dated entries. Shared by cv_with_bars + cv_no_bars.
+import type { CvData } from "../lib/cv";
+const { data } = Astro.props as { data: CvData };
+const body = data.body ?? {};
+---
+
+<h1>{data.full_name}</h1>
+
+{data.description && <div class="pitch" set:html={data.description} />}
+
+{Object.entries(body).map(([name, entries]) => (
+  <>
+    <h2>{name}</h2>
+    {entries.map((d) => (
+      <div class="content">
+        <div class="date-container">
+          <p class="date1">{d.end}</p>
+          {d.start && <p class="date2">{d.start}</p>}
+        </div>
+
+        <div class="description-container">
+          {d.description ? (
+            <h4><b>{d.title_link ? <a href={d.title_link}>{d.title}</a> : d.title}</b></h4>
+          ) : (
+            <p>{d.title_link ? <a href={d.title_link}>{d.title}</a> : d.title}</p>
+          )}
+
+          <h5>{d.company_link ? <a href={d.company_link}>{d.company}</a> : d.company}</h5>
+
+          {d.description && <div class="description" set:html={d.description} />}
+        </div>
+      </div>
+    ))}
+    <div class="spacer"></div>
+  </>
+))}

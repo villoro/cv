@@ -1,0 +1,2 @@
+# Ruff config for the Python helpers in scripts/.
+line-length = 100

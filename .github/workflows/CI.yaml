@@ -4,9 +4,19 @@ on:
   pull_request:
 
 jobs:
-  pre_commit:
+  prek:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
-    - uses: pre-commit/action@v3.0.0
+    - uses: actions/checkout@v4
+    - uses: j178/prek-action@v2
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: npm
+    - run: npm ci
+    - run: npm run build

@@ -1,0 +1,24 @@
+name: Check Version
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check_version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: villoro/vhooks/check_version@1.4.0
+        with:
+          branch: "main"
+          file: "package.json"
+          path: "version"
+          filters: |
+            code:
+              - 'src/**'
+              - 'public/**'
+              - 'scripts/**'
+              - 'astro.config.mjs'
+              - 'package.json'
+              - 'package-lock.json'

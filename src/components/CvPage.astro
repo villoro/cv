@@ -1,0 +1,14 @@
+---
+// Picks the right full-page document based on the CV's `template` field.
+import type { CvData } from "../lib/cv";
+import CvDocument from "../layouts/CvDocument.astro";
+import CoverDocument from "../layouts/CoverDocument.astro";
+
+const { data, preview } = Astro.props as { data: CvData; preview: boolean };
+---
+
+{data.template === "cover" ? (
+  <CoverDocument data={data} preview={preview} />
+) : (
+  <CvDocument data={data} preview={preview} />
+)}

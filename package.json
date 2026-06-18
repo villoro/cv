@@ -1,0 +1,24 @@
+{
+  "name": "cv",
+  "type": "module",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Personal CV generator: Astro website exported to PDF via Playwright (Chromium)",
+  "scripts": {
+    "sanitize-images": "node scripts/sanitize-public-images.mjs",
+    "dev": "npm run sanitize-images && astro dev",
+    "build": "npm run sanitize-images && astro build",
+    "preview": "astro preview",
+    "pdf": "node scripts/export-pdf.mjs",
+    "build:pdf": "npm run build && npm run pdf"
+  },
+  "dependencies": {
+    "astro": "^5.6.0",
+    "js-yaml": "^4.1.0",
+    "marked": "^14.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "playwright": "^1.49.0"
+  }
+}

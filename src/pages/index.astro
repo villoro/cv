@@ -1,0 +1,8 @@
+---
+// "/" — the default sample CV, shown with the preview frame.
+import { getContent } from "../lib/cv";
+import CvPage from "../components/CvPage.astro";
+const data = getContent();
+---
+
+<CvPage data={data} preview={true} />

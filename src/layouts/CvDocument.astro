@@ -1,0 +1,65 @@
+---
+// Full HTML document for the sidebar CV templates (cv_with_bars / cv_no_bars).
+import type { CvData } from "../lib/cv";
+import { assetUrl } from "../lib/cv";
+import { sidebarCss } from "../lib/styles";
+import ContactBlock from "../components/ContactBlock.astro";
+import SkillBars from "../components/SkillBars.astro";
+import PlainList from "../components/PlainList.astro";
+import BodySections from "../components/BodySections.astro";
+
+const { data, preview } = Astro.props as { data: CvData; preview: boolean };
+const config = data.config;
+const css = sidebarCss(config);
+const theme = String(config.theme_color_name ?? "default");
+const withBars = data.template === "cv_with_bars";
+const t = data.titles ?? {};
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style set:html={css}></style>
+  </head>
+  <body>
+    {/* The grey frame is only drawn for on-screen previews, never for print. */}
+    <div class={preview ? "frame" : undefined}>
+      <div class="page">
+        <div class="sidebar-background">
+          <div class="sidebar">
+            {data.image_uri && (
+              data.image_link ? (
+                <a href={data.image_link} style="display: block;">
+                  <img class="profile" src={assetUrl(data.image_uri)} />
+                </a>
+              ) : (
+                <img class="profile" src={assetUrl(data.image_uri)} />
+              )
+            )}
+
+            <ContactBlock data={data} theme={theme} />
+
+            {withBars ? (
+              <>
+                <SkillBars title={t.language} items={data.languages ?? {}} config={config} />
+                <SkillBars title={t.expertise} items={(data.expertise as Record<string, number>) ?? {}} config={config} />
+                <SkillBars title={t.programming} items={data.programming ?? {}} config={config} />
+              </>
+            ) : (
+              <>
+                <PlainList title={t.expertise} items={(data.expertise as string[]) ?? []} />
+                <SkillBars title={t.language} items={data.languages ?? {}} config={config} />
+                <PlainList title={t.keyskills} items={data.keyskills ?? []} />
+              </>
+            )}
+          </div>
+        </div>
+
+        <div class="body">
+          <BodySections data={data} />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -59,6 +59,20 @@ dist/
 # Hide images (except default)
 cv/static/images/*
 !cv/static/images/default_*
+public/images/*
+!public/images/default_*
 
 # Notebooks for images
 utilities/**.ipynb
+
+# --------------------- NODE / ASTRO ------------------------------------------
+node_modules/
+.astro/
+dist/
+*.log
+
+# --------------------- PYTHON ENV --------------------------------------------
+.venv/
+
+# --------------------- EDITOR / TOOLING --------------------------------------
+.claude/settings.local.json
