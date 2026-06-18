@@ -58,6 +58,14 @@ PDFs are written to `sample/output/` by default (override with the `CV_OUTPUT_DI
 environment variable). `npm run pdf` exports without rebuilding if `dist/` is
 already up to date.
 
+```
+# PowerShell
+$env:CV_OUTPUT_DIR = "cv_private/output"
+
+# CMD
+set CV_OUTPUT_DIR=cv_private/output
+```
+
 ## Configuration
 
 Each CV's `yaml` file holds both the **content** and a `config` block that controls
