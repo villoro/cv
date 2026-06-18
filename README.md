@@ -31,6 +31,9 @@ example a private one) set the `CV_DATA_DIR` environment variable:
 ```
 # PowerShell
 $env:CV_DATA_DIR = "cv_private/input"
+
+# CMD
+set CV_DATA_DIR=cv_private/input
 ```
 
 ### 2. Preview in the browser
