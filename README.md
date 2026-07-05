@@ -95,6 +95,11 @@ uv sync
 uv run python process.py
 ```
 
+> **Note:** `npm run build` downscales images in `public/` to 600px max (they're
+> displayed small, and Chromium would otherwise embed them full-size, bloating the
+> PDF). Override with `CV_IMAGE_MAX_PX`. Filenames with `#`/spaces are also renamed
+> to web-safe versions automatically.
+
 ## Authors
 * [Arnau Villoro](villoro.com)
 
