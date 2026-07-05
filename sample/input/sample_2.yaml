@@ -1,4 +1,5 @@
 template: cv_no_bars
+lang: en  # document language (ISO 639-1), sets <html lang>
 
 full_name: John Doe
 

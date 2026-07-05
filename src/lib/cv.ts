@@ -25,6 +25,7 @@ export interface CvEntry {
 
 export interface CvData {
   template: "cv_with_bars" | "cv_no_bars" | "cover" | string;
+  lang?: string; // ISO 639-1 code for <html lang>; defaults to "en"
   full_name: string;
   address?: string[];
   phone?: string;
