@@ -1,7 +1,7 @@
 // Loads CV data from YAML files and converts the Markdown fields to HTML.
 import fs from "node:fs";
 import path from "node:path";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import { marked } from "marked";
 
 // Where the YAML inputs live. Set CV_DATA_DIR to point elsewhere (e.g.
