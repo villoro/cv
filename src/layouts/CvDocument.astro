@@ -17,9 +17,10 @@ const t = data.titles ?? {};
 ---
 
 <!DOCTYPE html>
-<html>
+<html lang={String(config.lang ?? "en")}>
   <head>
     <meta charset="utf-8" />
+    <title>{data.full_name}</title>
     <style set:html={css}></style>
   </head>
   <body>
