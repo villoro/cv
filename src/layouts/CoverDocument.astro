@@ -8,9 +8,10 @@ const css = coverCss(data.config);
 ---
 
 <!DOCTYPE html>
-<html>
+<html lang={String(data.lang ?? "en")}>
   <head>
     <meta charset="utf-8" />
+    <title>{data.full_name}</title>
     <style set:html={css}></style>
   </head>
   <body>

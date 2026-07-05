@@ -76,6 +76,10 @@ Pick the layout with the top-level `template` field:
 - `cv_with_bars` — sidebar with expertise/programming/languages all as bars.
 - `cover` — a standalone full-width cover page.
 
+Set the document language with the top-level `lang` field (ISO 639-1, e.g. `en`,
+`ca`, `es`, `it`, `fr`; defaults to `en`). It becomes `<html lang>`, which helps
+accessibility tools and ATS/PDF scanners read the CV correctly.
+
 The layouts and their CSS live in `src/layouts/`, `src/components/`, and
 `src/lib/styles.ts`. The contact-icon theme is chosen with `config.theme_color_name`
 (a folder under `public/icons/`).

@@ -48,6 +48,7 @@ try {
       path: out,
       printBackground: true,
       preferCSSPageSize: true, // honour each CV's @page size from its config
+      tagged: true, // emit a tagged PDF (logical structure) for ATS / accessibility
       margin: { top: "0", bottom: "0", left: "0", right: "0" },
     });
     console.log(`-- Created ${path.relative(ROOT, out)} --`);

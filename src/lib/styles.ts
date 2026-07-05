@@ -16,7 +16,7 @@ export function sidebarCss(c: Cfg): string {
 ${fontFaces}
 @page { size: ${n("page_width")}mm ${n("page_height")}mm; margin: 0; }
 
-html, body, p, ul, li { margin: 0; padding: 0; font-size: 9pt; line-height: 1; font-family: 'Avenir 35'; }
+html, body, p, ul, li { margin: 0; padding: 0; font-size: 9pt; line-height: 1; font-family: 'Avenir 35'; font-variant-ligatures: none; }
 
 h1, h2, h3, h4, h5, h6 { font-weight: normal; margin: 0px; }
 h1, h2, h3, h5 { color: ${c["theme_color"]}; }
@@ -96,7 +96,7 @@ export function coverCss(c: Cfg): string {
 ${fontFaces}
 @page { size: ${n("page_width")}mm ${n("page_height")}mm; margin: 0; }
 
-html, body, p, ul, li { margin: 0; padding: 0; font-size: 10pt; line-height: 1.8; font-family: 'Avenir 35'; }
+html, body, p, ul, li { margin: 0; padding: 0; font-size: 10pt; line-height: 1.8; font-family: 'Avenir 35'; font-variant-ligatures: none; }
 h1, h2, h3, h4, h5, h6 { font-weight: normal; }
 h1, h2, h3, h5 { color: ${c["theme_color"]}; }
 h1 {
