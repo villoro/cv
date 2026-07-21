@@ -13,7 +13,7 @@ readme = "../README.md"
 license = "MIT"
 requires-python = ">=3.10,<3.12"
 dependencies = [
-    "pillow>=10.1.0",
+    "pillow>=12.3.0",
     "pydantic>=1.10.6,<2",   # process.py uses v1 APIs (validator, root_validator)
     "tqdm>=4.65.0",
     "vpalette>=3.0.0",
