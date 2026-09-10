@@ -17,7 +17,7 @@
     "build:pdf": "npm run build && npm run pdf"
   },
   "dependencies": {
-    "astro": "^7.0.6",
+    "astro": "^7.2.8",
     "js-yaml": "^5.2.1",
     "marked": "^18.0.5"
   },
