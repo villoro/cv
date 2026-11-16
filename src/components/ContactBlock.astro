@@ -11,7 +11,7 @@ const icon = (name: string) => assetUrl(`icons/${theme}/${name}.jpg`);
 
 {data.address && (
   <>
-    <div class="skill-container">
+    <div class="skill-container contact-row">
       <img class="icon" src={icon("address")} />
       <div class="contact-container">
         <div class="contact-text">
@@ -25,7 +25,7 @@ const icon = (name: string) => assetUrl(`icons/${theme}/${name}.jpg`);
 
 {data.phone && (
   <>
-    <div class="skill-container">
+    <div class="skill-container contact-row">
       <img class="icon" src={icon("phone")} />
       <div class="contact-container">
         <p class="contact-text">{data.phone}</p>
@@ -37,7 +37,7 @@ const icon = (name: string) => assetUrl(`icons/${theme}/${name}.jpg`);
 
 {data.email && (
   <>
-    <div class="skill-container">
+    <div class="skill-container contact-row">
       <img class="icon" src={icon("email")} />
       <div class="contact-container">
         <p class="contact-text">
@@ -51,7 +51,7 @@ const icon = (name: string) => assetUrl(`icons/${theme}/${name}.jpg`);
 
 {data.web && (
   <>
-    <div class="skill-container">
+    <div class="skill-container contact-row">
       <img class="icon" src={icon("web")} />
       <div class="contact-container">
         <p class="contact-text"><a href={data.web}>{data.web}</a></p>
@@ -63,7 +63,7 @@ const icon = (name: string) => assetUrl(`icons/${theme}/${name}.jpg`);
 
 {data.linkedin && (
   <>
-    <div class="skill-container">
+    <div class="skill-container contact-row">
       <img class="icon" src={icon("linkedin")} />
       <div class="contact-container">
         <p class="contact-text">
