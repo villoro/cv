@@ -11,7 +11,7 @@ description = "Image-processing utilities for the Easy CV project"
 authors = [{ name = "Arnau Villoro", email = "arnau@villoro.com" }]
 readme = "../README.md"
 license = "MIT"
-requires-python = ">=3.10,<3.12"
+requires-python = ">=3.12,<3.15"  # 3.15: no onnxruntime wheels yet
 dependencies = [
     "pillow>=10.1.0",
     "pydantic>=1.10.6,<2",   # process.py uses v1 APIs (validator, root_validator)
