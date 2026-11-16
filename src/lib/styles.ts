@@ -1,6 +1,8 @@
 // Inline CSS for the CV documents. Per-CV `config` values are interpolated into
-// the stylesheet; kept as a string so the millimeter-precise, float-based layout
-// stays exact.
+// the stylesheet; kept as a string so the millimeter-precise layout stays exact.
+//
+// Layout uses flexbox, never floats or absolute positioning: Chromium paints those
+// out of document order, which scrambles the text order of the PDF for ATS parsers.
 type Cfg = Record<string, number | string>;
 
 const fontFaces = `
@@ -32,10 +34,8 @@ h2 {
 }
 h3 { font-size: 14pt; font-family: 'Avenir 45'; padding-top: 7mm; }
 h4 { font-size: 10pt; font-family: 'Avenir 45'; }
-h5 {
-  font-size: 10pt; font-family: 'Avenir 55'; padding-right: ${n("padding")}mm;
-  position: absolute; right: 0px; top: 0px; text-align: right;
-}
+/* height: 0 keeps the company name from affecting the row height (as when it was absolutely positioned). */
+h5 { font-size: 10pt; font-family: 'Avenir 55'; text-align: right; flex: none; height: 0; white-space: nowrap; }
 a { color: inherit; text-decoration: inherit; }
 
 ul { list-style-type: none; }
@@ -46,10 +46,11 @@ li:before { content: "- "; }
   padding-left: ${n("frame_padding")}mm; padding-right: ${n("frame_padding")}mm;
   background-color: ${c["frame_color"]};
 }
-.page { page-break-after: always; width: ${n("page_width")}mm; height: ${n("page_height")}mm; background-color: white; }
-.sidebar-background { float: left; width: ${n("sidebar_width")}mm; height: ${n("page_height")}mm; background-color: ${c["sidebar_color"]}; }
+/* Grid placement: the body comes first in the document (name and experience lead the text order) but the sidebar is drawn on the left. */
+.page { display: grid; grid-template-columns: ${n("sidebar_width")}mm ${n("page_width") - n("sidebar_width")}mm; page-break-after: always; width: ${n("page_width")}mm; height: ${n("page_height")}mm; background-color: white; }
+.sidebar-background { grid-column: 1; grid-row: 1; width: ${n("sidebar_width")}mm; height: ${n("page_height")}mm; background-color: ${c["sidebar_color"]}; }
 .sidebar { padding-top: ${n("padding")}mm; padding-bottom: ${n("padding")}mm; padding-left: ${n("padding")}mm; padding-right: ${n("padding")}mm; }
-.body { float: left; width: ${n("page_width") - n("sidebar_width")}mm; height: ${n("page_height")}mm; }
+.body { grid-column: 2; grid-row: 1; width: ${n("page_width") - n("sidebar_width")}mm; height: ${n("page_height")}mm; }
 
 .pitch {
   padding-top: ${n("pitch_padding_top")}mm; padding-bottom: ${n("pitch_padding_bottom")}mm;
@@ -58,21 +59,24 @@ li:before { content: "- "; }
 }
 .skill-container { padding-top: 3mm; }
 .skill-spacer { padding-top: 3mm; clear: both; }
-.contact-container { display: table; float: left; height: 4mm; padding-left: 2mm; }
+.contact-row { display: flex; align-items: flex-start; }
+.contact-container { display: table; height: 4mm; padding-left: 2mm; }
 .contact-text { display: table-cell; vertical-align: middle; }
-.content { float: left; width: ${n("page_width") - n("sidebar_width")}mm; padding-top: 4mm; }
+.content { display: flex; align-items: flex-start; width: ${n("page_width") - n("sidebar_width")}mm; padding-top: 4mm; }
 .spacer { clear: both; }
-.date-container { float: left; padding-left: 8mm; width: ${n("date_container_width")}mm; }
+/* Grid placement: start date precedes end date in the document, end date is drawn on top. */
+.date-container { display: grid; align-content: start; flex: none; padding-left: 8mm; width: ${n("date_container_width")}mm; }
 .date2, .description { padding-top: 2mm; }
-.date1 { font-size: 9pt; }
-.date2 { font-size: 8pt; color: ${c["date2_color"]}; }
+.date1 { font-size: 9pt; grid-row: 1; }
+.date2 { grid-row: 2; font-size: 8pt; color: ${c["date2_color"]}; }
 .date1, .date2 { text-align: center; width: ${n("padding")}mm; }
 .description-container {
-  float: left; position: relative;
+  flex: none;
   width: ${n("page_width") - n("sidebar_width") - n("padding") - n("date_container_width") - n("date_container_padding_left") - n("description_container_padding_left") - 1}mm;
   padding-left: ${n("description_container_padding_left")}mm; padding-right: ${n("padding")}mm;
   border-left: 2px solid ${c["sidebar_color"]};
 }
+.entry-head { display: flex; justify-content: space-between; align-items: flex-start; }
 .description { line-height: 2; }
 .pitch p { font-size: 9pt; line-height: 1.4; }
 .description p, .description li { line-height: 1.4; }
@@ -82,7 +86,7 @@ li:before { content: "- "; }
 .bar-grey { background-color: ${c["bar_background_color"]}; }
 .bar-blue { background-color: ${c["theme_color"]}; }
 
-.icon { width: 4mm; height: 4mm; float: left; }
+.icon { width: 4mm; height: 4mm; flex: none; }
 .profile { width: ${n("sidebar_width") - 2 * n("padding")}mm; height: ${n("sidebar_width") - 2 * n("padding")}mm; padding-bottom: ${n("profile_image_padding_bottom")}mm; }
 `;
 }

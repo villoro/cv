@@ -83,6 +83,11 @@ npm run build:pdf                 # build + export
   Repo version is **`3.0.0`**.
 
 ## Known gotchas
+- **No floats or absolute positioning in the CV layout.** Chromium paints them out of document
+  order, so the PDF's text stream gets scrambled for ATS parsers (dates and company names end up
+  detached from their entries). Use flexbox/grid; `styles.ts` places the sidebar and the dates
+  with grid so the document order is body first and start date before end date. Check with
+  `pdftotext -raw <file>.pdf -`.
 - All current input YAMLs use the `cv_no_bars` template. `cv_with_bars` and `cover` are
   implemented but have no test data — verify if they're ever used.
 - **Profile images are generated artifacts.** Real CVs point `image_uri` at a processed PNG

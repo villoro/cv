@@ -27,6 +27,11 @@ const t = data.titles ?? {};
     {/* The grey frame is only drawn for on-screen previews, never for print. */}
     <div class={preview ? "frame" : undefined}>
       <div class="page">
+        {/* Body first: it leads the PDF text order; CSS draws the sidebar on the left. */}
+        <div class="body">
+          <BodySections data={data} />
+        </div>
+
         <div class="sidebar-background">
           <div class="sidebar">
             {data.image_uri && (
@@ -55,10 +60,6 @@ const t = data.titles ?? {};
               </>
             )}
           </div>
-        </div>
-
-        <div class="body">
-          <BodySections data={data} />
         </div>
       </div>
     </div>

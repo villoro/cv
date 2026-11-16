@@ -16,18 +16,20 @@ const body = data.body ?? {};
     {entries.map((d) => (
       <div class="content">
         <div class="date-container">
-          <p class="date1">{d.end}</p>
           {d.start && <p class="date2">{d.start}</p>}
+          <p class="date1">{d.end}</p>
         </div>
 
         <div class="description-container">
-          {d.description ? (
-            <h4><b>{d.title_link ? <a href={d.title_link}>{d.title}</a> : d.title}</b></h4>
-          ) : (
-            <p>{d.title_link ? <a href={d.title_link}>{d.title}</a> : d.title}</p>
-          )}
+          <div class="entry-head">
+            {d.description ? (
+              <h4><b>{d.title_link ? <a href={d.title_link}>{d.title}</a> : d.title}</b></h4>
+            ) : (
+              <p>{d.title_link ? <a href={d.title_link}>{d.title}</a> : d.title}</p>
+            )}
 
-          <h5>{d.company_link ? <a href={d.company_link}>{d.company}</a> : d.company}</h5>
+            <h5>{d.company_link ? <a href={d.company_link}>{d.company}</a> : d.company}</h5>
+          </div>
 
           {d.description && <div class="description" set:html={d.description} />}
         </div>
